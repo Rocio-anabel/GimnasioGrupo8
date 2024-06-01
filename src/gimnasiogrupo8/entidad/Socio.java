@@ -7,11 +7,12 @@ public class Socio {
     private int edad;
     private String correo;
     private String telefono;
+    private boolean estado;
 
     public Socio() {
     }
 
-    public Socio(int id_socio, String dni, String nombre, String apellido, int edad, String correo, String telefono) {
+    public Socio(int id_socio, String dni, String nombre, String apellido, int edad, String correo, String telefono, boolean estado) {
         this.id_socio = id_socio;
         this.dni = dni;
         this.nombre = nombre;
@@ -19,17 +20,19 @@ public class Socio {
         this.edad = edad;
         this.correo = correo;
         this.telefono = telefono;
+        this.estado = estado;
     }
 
-    public Socio(String dni, String nombre, String apellido, int edad, String correo, String telefono) {
+    public Socio(String dni, String nombre, String apellido, int edad, String correo, String telefono, boolean estado) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
         this.correo = correo;
         this.telefono = telefono;
+        this.estado = estado;
     }
-
+    
     public int getId_socio() {
         return id_socio;
     }
@@ -85,6 +88,15 @@ public class Socio {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+      
 
     @Override
     public String toString() {
