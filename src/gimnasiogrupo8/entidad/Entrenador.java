@@ -5,28 +5,25 @@ public class Entrenador {
     private String nombre;
     private String apellido;
     private String especialidad;
-    private String disponibilidad;
     private boolean estado;
 
     public Entrenador() {
     }
 
-    public Entrenador(int id_Entrenador, String dni, String nombre, String apellido, String especialidad, String disponibilidad, boolean estado) {
+    public Entrenador(int id_Entrenador, String dni, String nombre, String apellido, String especialidad,boolean estado) {
         this.id_Entrenador = id_Entrenador;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.especialidad = especialidad;
-        this.disponibilidad = disponibilidad;
         this.estado = estado;
     }
 
-    public Entrenador(String dni, String nombre, String apellido, String especialidad, String disponibilidad, boolean estado) {
+    public Entrenador(String dni, String nombre, String apellido, String especialidad,boolean estado) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.especialidad = especialidad;
-        this.disponibilidad = disponibilidad;
         this.estado = estado;
     }
     
@@ -70,14 +67,6 @@ public class Entrenador {
         this.especialidad = especialidad;
     }
 
-    public String getDisponibilidad() {
-        return disponibilidad;
-    }
-
-    public void setDisponibilidad(String disponibilidad) {
-        this.disponibilidad = disponibilidad;
-    }
-
     public boolean isEstado() {
         return estado;
     }
@@ -88,6 +77,6 @@ public class Entrenador {
     
     @Override
     public String toString() {
-        return "Entrenador{" + "id_Entrenador=" + id_Entrenador + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", especialidad=" + especialidad + ", disponibilidad=" + disponibilidad + '}';
+        return "Entrenador{" + "id_Entrenador=" + id_Entrenador + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", especialidad=" + especialidad + ", disponibilidad=" +'}';
     }
 }
