@@ -85,7 +85,7 @@ public class ClaseData {
     public Clase buscarClasePorNombre(String nombre){
         
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1 AND Nombre like ?";
         
         PreparedStatement ps = null;
         
@@ -95,11 +95,12 @@ public class ClaseData {
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()){
-                Entrenador entrenador = new Entrenador();
+                EntrenadoresData ed = new EntrenadoresData();
+                Entrenador entrenador = ed.buscarPorID(rs.getInt("ID_Entrenador"));
                 clase = new Clase();
                 clase.setId_clase(rs.getInt("ID_Clase"));
                 clase.setNombre(rs.getString("Nombre"));
-                entrenador.setId_Entrenador(rs.getInt("ID_Entrenador"));
+                clase.setEntrenador(entrenador);
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
@@ -152,7 +153,7 @@ public class ClaseData {
     
     
     }
-    public Clase buscarClasePorHorario(Time horario){
+    public Clase buscarClasePorHorario(LocalTime horario){
         
         Clase clase = null;
         String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1";
