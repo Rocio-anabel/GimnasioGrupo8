@@ -83,6 +83,7 @@ public class EntrenadoresData {
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 entrenador = new Entrenador();
+                entrenador.setId_Entrenador(id);
                 entrenador.setDni(rs.getString("Dni"));
                 entrenador.setNombre(rs.getString("Nombre"));
                 entrenador.setApellido(rs.getString("Apellido"));

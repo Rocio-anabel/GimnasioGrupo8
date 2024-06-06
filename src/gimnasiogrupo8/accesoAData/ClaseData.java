@@ -121,7 +121,8 @@ public class ClaseData {
     public Clase buscarClasePorEntrenador(int entrenador){
         
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1"
+                + " AND ID_Entrenador = ?";
         
         PreparedStatement ps = null;
         
@@ -131,11 +132,12 @@ public class ClaseData {
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()){
-                Entrenador entre = new Entrenador();
+                EntrenadoresData ed = new EntrenadoresData();
+                Entrenador entre = ed.buscarPorID(entrenador);
                 clase = new Clase();
                 clase.setId_clase(rs.getInt("ID_Clase"));
                 clase.setNombre(rs.getString("Nombre"));
-                entre.setId_Entrenador(rs.getInt("ID_Entrenador"));
+                clase.setEntrenador(entre);
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
@@ -156,21 +158,22 @@ public class ClaseData {
     public Clase buscarClasePorHorario(LocalTime horario){
         
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1 AND Horario = ?";
         
         PreparedStatement ps = null;
         
         try {
             ps = con.prepareStatement(sql);
-            ps.setTime(1,horario);
+            ps.setTime(1,Time.valueOf(horario));
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()){
-                Entrenador entrenador = new Entrenador();
+                EntrenadoresData ed = new EntrenadoresData();
+                Entrenador entrenador = ed.buscarPorID(rs.getInt("ID_Entrenador"));
                 clase = new Clase();
                 clase.setId_clase(rs.getInt("ID_Clase"));
                 clase.setNombre(rs.getString("Nombre"));
-                entrenador.setId_Entrenador(rs.getInt("ID_Entrenador"));
+                clase.setEntrenador(entrenador);
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
