@@ -228,7 +228,5 @@ public class ClaseData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la Clase "+ex.getMessage());
         }
     
-    
-    
     }
 }
