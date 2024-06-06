@@ -29,7 +29,7 @@ public class MembresiaData {
     }
      //Guardar Membresia  
      public void guardarMembresia(Membresia membresia) {
-         String sql="INSERT INTO `membresias`(`ID_Membresía`, `ID_Socio`, `Costo`, `CantidadPases`, `Fecha_Inicio`, `Fecha_Fin`, `Estado`) VALUES ()";    
+         String sql="INSERT INTO `membresias`(`ID_Membresía`, `ID_Socio`, `Costo`, `CantidadPases`, `Fecha_Inicio`, `Fecha_Fin`, `Estado`) VALUES (?,?,?,?,?,?,?)";    
        
         
          try {
@@ -65,10 +65,11 @@ public class MembresiaData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                Socio socio=new Socio();
+                SociosData sd = new SociosData();
+                Socio socio = sd.buscarSocioPorId(idSocio);
                 membresia = new Membresia();
                 membresia.setId_membresia(rs.getInt("ID_Membresía"));
-               socio.setId_socio(rs.getInt("ID_socio"));
+                membresia.setSocio(socio);
                 membresia.setCosto(rs.getDouble("Costo"));
                 membresia.setCantidadPases(rs.getInt("CantidadPases"));
                 membresia.setFecha_inicio(rs.getDate("Fecha_Inicio").toLocalDate());
@@ -88,14 +89,16 @@ public class MembresiaData {
     public List<Membresia> listarMembresiasActivas() {
         String sql = "SELECT * FROM membresias WHERE Estado = 1";
         List<Membresia> membresias = new ArrayList<>();
-        Socio socio=new Socio();
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                SociosData sd = new SociosData();
+                Socio socio=sd.buscarSocioPorId(rs.getInt("ID_socio"));
                 Membresia membresia = new Membresia();
                 membresia.setId_membresia(rs.getInt("ID_Membresía"));
-                socio.setId_socio(rs.getInt("ID_socio"));
+                membresia.setSocio(socio);
                 membresia.setCosto(rs.getDouble("Costo"));
                 membresia.setCantidadPases(rs.getInt("CantidadPases"));
                 membresia.setFecha_inicio(rs.getDate("Fecha_Inicio").toLocalDate());

@@ -27,8 +27,8 @@ public class ClaseData {
     
     public void guardarClase(Clase clase){
         
-        String sql = "INSERT INTO clases( Nombre, ID_Entrenador, Horario, Capacidad, Estado) VALUES (?,?,?,?,?)";
-        
+        String sql = "INSERT INTO clases(Nombre, ID_Entrenador, Horario, Capacidad, Estado) VALUES (?,?,?,?,?)";
+                
         try {
             PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,clase.getNombre());
@@ -197,12 +197,12 @@ public class ClaseData {
         String sql = "UPDATE clases SET Nombre=?,ID_Entrenador=?,Horario=?,Capacidad=?,Estado=? WHERE Estado=1 AND ID_Clase=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(2,clase.getNombre());
-            ps.setInt(3, clase.getEntrenador().getId_Entrenador());
-            ps.setTime(4, Time.valueOf(clase.getHorario()));
-            ps.setInt(5,clase.getCapacidad());
-            ps.setBoolean(6, clase.isEstado());
-            ps.setInt(1, clase.getId_clase());
+            ps.setString(1,clase.getNombre());
+            ps.setInt(2, clase.getEntrenador().getId_Entrenador());
+            ps.setTime(3, Time.valueOf(clase.getHorario()));
+            ps.setInt(4,clase.getCapacidad());
+            ps.setBoolean(5, clase.isEstado());
+            ps.setInt(6, clase.getId_clase());
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Clase Modificado");
