@@ -26,6 +26,9 @@ public class Asistencia {
         this.fechaHora = fechaHora;
     }
 
+    public Asistencia() {
+    }
+
     public int getIdAsistencia() {
         return idAsistencia;
     }
