@@ -58,7 +58,7 @@ public class EntrenadoresData {
                 entrenador.setId_Entrenador(rs.getInt("ID_Entrenador"));
                 entrenador.setDni(rs.getString("Dni"));
                 entrenador.setApellido(rs.getString("Apellido"));
-                entrenador.setEspecialidad("Especialidad");
+                entrenador.setEspecialidad(rs.getString("Especialidad"));
                 entrenador.setEstado(true);
             }else{
                 JOptionPane.showMessageDialog(null,"Entrenador no existente"); 
@@ -71,6 +71,68 @@ public class EntrenadoresData {
         return entrenador;
     }
     
+    //Buscar entrenador por apellido
+    
+    public Entrenador buscarEntrenadorPorApellido(String apellido){
+        Entrenador entrenador = null;
+        String sql = "SELECT ID_Entrenador,Dni,Nombre,Especialidad FROM entrenadores WHERE Apellido = ? AND Estado = 1";
+        PreparedStatement ps = null;  
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1,apellido);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                entrenador = new Entrenador();
+                entrenador.setNombre(rs.getString("Nombre"));
+                entrenador.setId_Entrenador(rs.getInt("ID_Entrenador"));
+                entrenador.setDni(rs.getString("Dni"));
+                entrenador.setApellido(apellido);
+                entrenador.setEspecialidad(rs.getString("Especialidad"));
+                entrenador.setEstado(true);
+            }else{
+                JOptionPane.showMessageDialog(null,"Entrenador no existente"); 
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al ingresar a la tabla Entrenadores");
+        }
+        
+        return entrenador;
+    }
+    
+    //Buscar entrenador por Nombre y Apellido
+    
+    public Entrenador buscarEntrenadorPorNombreApellido(String nombre, String apellido){
+        Entrenador entrenador = null;
+        String sql = "SELECT ID_Entrenador,Dni,Especialidad FROM entrenadores WHERE Nombre = ? AND Apellido = ? AND Estado = 1";
+        PreparedStatement ps = null;  
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1,nombre);
+            ps.setString(2, apellido);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                entrenador = new Entrenador();
+                entrenador.setNombre(nombre);
+                entrenador.setId_Entrenador(rs.getInt("ID_Entrenador"));
+                entrenador.setDni(rs.getString("Dni"));
+                entrenador.setApellido(apellido);
+                entrenador.setEspecialidad(rs.getString("Especialidad"));
+                entrenador.setEstado(true);
+            }else{
+                JOptionPane.showMessageDialog(null,"Entrenador no existente"); 
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al ingresar a la tabla Entrenadores");
+        }
+        
+        return entrenador;
+    }
     //Buscar entrenadores por ID
     
     public Entrenador buscarPorID(int id){
@@ -115,6 +177,7 @@ public class EntrenadoresData {
              entrenador.setDni(rs.getString("Dni"));
              entrenador.setApellido(rs.getString("Apellido"));
              entrenador.setNombre(rs.getString("Nombre"));
+             entrenador.setEspecialidad(especialidad);
              entrenadoresPorEspecialidad.add(entrenador);
             }
         } catch (SQLException ex) {
