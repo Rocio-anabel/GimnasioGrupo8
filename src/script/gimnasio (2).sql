@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2024 at 04:12 AM
+-- Generation Time: Jun 11, 2024 at 10:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,8 +47,16 @@ CREATE TABLE `clases` (
   `ID_Entrenador` int(11) NOT NULL,
   `Horario` time NOT NULL,
   `Capacidad` int(11) NOT NULL,
-  `Estado` tinyint(1) NOT NULL
+  `Estado` tinyint(1) NOT NULL,
+  `Dia` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `clases`
+--
+
+INSERT INTO `clases` (`ID_Clase`, `Nombre`, `ID_Entrenador`, `Horario`, `Capacidad`, `Estado`, `Dia`) VALUES
+(2, 'Pilates', 1, '18:00:00', 3, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -64,6 +72,13 @@ CREATE TABLE `entrenadores` (
   `Especialidad` varchar(30) NOT NULL,
   `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `entrenadores`
+--
+
+INSERT INTO `entrenadores` (`ID_Entrenador`, `DNI`, `Nombre`, `Apellido`, `Especialidad`, `Estado`) VALUES
+(1, '32678542', 'Mariana', 'Ochoa', 'Relajacion', 1);
 
 -- --------------------------------------------------------
 
@@ -81,6 +96,13 @@ CREATE TABLE `membresias` (
   `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `membresias`
+--
+
+INSERT INTO `membresias` (`ID_Membresía`, `ID_Socio`, `Costo`, `CantidadPases`, `Fecha_Inicio`, `Fecha_Fin`, `Estado`) VALUES
+(1, 1, 4560, 12, '2024-05-10', '2024-06-15', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -97,6 +119,13 @@ CREATE TABLE `socios` (
   `Telefono` varchar(10) NOT NULL,
   `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `socios`
+--
+
+INSERT INTO `socios` (`ID_Socio`, `Dni`, `Nombre`, `Apellido`, `Edad`, `Correo`, `Telefono`, `Estado`) VALUES
+(1, '38654221', 'Laura', 'Martinez', 30, 'lauritamarr001@gmail.com', '2665312040', 1);
 
 --
 -- Indexes for dumped tables
@@ -153,25 +182,25 @@ ALTER TABLE `asistencia`
 -- AUTO_INCREMENT for table `clases`
 --
 ALTER TABLE `clases`
-  MODIFY `ID_Clase` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Clase` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `entrenadores`
 --
 ALTER TABLE `entrenadores`
-  MODIFY `ID_Entrenador` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Entrenador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `membresias`
 --
 ALTER TABLE `membresias`
-  MODIFY `ID_Membresía` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Membresía` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `socios`
 --
 ALTER TABLE `socios`
-  MODIFY `ID_Socio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Socio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
