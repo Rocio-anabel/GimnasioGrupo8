@@ -156,16 +156,17 @@ public class ClaseData {
     
     
     }
-    public Clase buscarClasePorHorario(LocalTime horario){
+    public Clase buscarClasePorHorario(LocalTime horario,DayOfWeek dia){
         
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1 AND Horario = ?";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1 AND Horario = ? AND Dia = ?";
         
         PreparedStatement ps = null;
         
         try {
             ps = con.prepareStatement(sql);
             ps.setTime(1,Time.valueOf(horario));
+            ps.setInt(2,dia.getValue());
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()){
@@ -179,9 +180,6 @@ public class ClaseData {
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
                 clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
-                
-                
-            
             }else{
                 JOptionPane.showMessageDialog(null, "No existe la Clase");    
             }

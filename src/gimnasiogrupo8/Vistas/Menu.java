@@ -30,7 +30,14 @@ public class Menu extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItemSocio = new javax.swing.JMenuItem();
+        jMenuItemEntrenador = new javax.swing.JMenuItem();
+        jMenuItemClase = new javax.swing.JMenuItem();
+        jMenuItemMembresia = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItemListarSocios = new javax.swing.JMenuItem();
+        jMenuItemListarEntrenadores = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,7 +52,7 @@ public class Menu extends javax.swing.JFrame {
             .addGap(0, 279, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Gestiones");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu1MouseClicked(evt);
@@ -56,9 +63,37 @@ public class Menu extends javax.swing.JFrame {
                 jMenu1ActionPerformed(evt);
             }
         });
+
+        jMenuItemSocio.setText("Socio");
+        jMenuItemSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSocioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemSocio);
+
+        jMenuItemEntrenador.setText("Entrenador");
+        jMenuItemEntrenador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEntrenadorActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemEntrenador);
+
+        jMenuItemClase.setText("Clase");
+        jMenuItemClase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemClaseActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemClase);
+
+        jMenuItemMembresia.setText("Membresia");
+        jMenu1.add(jMenuItemMembresia);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Listar");
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu2MouseClicked(evt);
@@ -69,6 +104,26 @@ public class Menu extends javax.swing.JFrame {
                 jMenu2ActionPerformed(evt);
             }
         });
+
+        jMenuItemListarSocios.setText("Listar Socios");
+        jMenuItemListarSocios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListarSociosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemListarSocios);
+
+        jMenuItemListarEntrenadores.setText("Listar Entrenadores");
+        jMenuItemListarEntrenadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListarEntrenadoresActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemListarEntrenadores);
+
+        jMenuItem3.setText("Listar Membresias");
+        jMenu2.add(jMenuItem3);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -96,22 +151,62 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        jDesktopPane1.removeAll();
-        jDesktopPane1.repaint();
-        GestionEntrenadores ge = new GestionEntrenadores();
-        ge.setVisible(true);
-        jDesktopPane1.add(ge);
-        jDesktopPane1.moveToFront(ge);
+
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenuItemSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSocioActionPerformed
+        // TODO add your handling code here:
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        ListaEntrenadores le = new ListaEntrenadores();
-        le.setVisible(true);
-        jDesktopPane1.add(le);
-        jDesktopPane1.moveToFront(le);
-    }//GEN-LAST:event_jMenu2MouseClicked
+        SocioVista alu=new SocioVista();
+        alu.setVisible(true);
+        jDesktopPane1.add(alu);
+        jDesktopPane1.moveToFront(alu);  
+    }//GEN-LAST:event_jMenuItemSocioActionPerformed
+
+    private void jMenuItemEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEntrenadorActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        GestionEntrenadores alu=new GestionEntrenadores();
+        alu.setVisible(true);
+        jDesktopPane1.add(alu);
+        jDesktopPane1.moveToFront(alu); 
+    }//GEN-LAST:event_jMenuItemEntrenadorActionPerformed
+
+    private void jMenuItemClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClaseActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        GestionClase alu=new GestionClase();
+        alu.setVisible(true);
+        jDesktopPane1.add(alu);
+        jDesktopPane1.moveToFront(alu); 
+    }//GEN-LAST:event_jMenuItemClaseActionPerformed
+
+    private void jMenuItemListarSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarSociosActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        listaSocios alu=new listaSocios();
+        alu.setVisible(true);
+        jDesktopPane1.add(alu);
+        jDesktopPane1.moveToFront(alu); 
+    }//GEN-LAST:event_jMenuItemListarSociosActionPerformed
+
+    private void jMenuItemListarEntrenadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarEntrenadoresActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        ListaEntrenadores alu=new ListaEntrenadores();
+        alu.setVisible(true);
+        jDesktopPane1.add(alu);
+        jDesktopPane1.moveToFront(alu); 
+    }//GEN-LAST:event_jMenuItemListarEntrenadoresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,5 +248,12 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItemClase;
+    private javax.swing.JMenuItem jMenuItemEntrenador;
+    private javax.swing.JMenuItem jMenuItemListarEntrenadores;
+    private javax.swing.JMenuItem jMenuItemListarSocios;
+    private javax.swing.JMenuItem jMenuItemMembresia;
+    private javax.swing.JMenuItem jMenuItemSocio;
     // End of variables declaration//GEN-END:variables
 }

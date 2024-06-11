@@ -28,8 +28,8 @@ public class listaSocios extends javax.swing.JInternalFrame {
         initComponents();
         socioData = new SociosData();
         modelo = new DefaultTableModel();
-        cargarSocios();
         armarCabeceraTabla();
+        cargarSocios();
         
     }
 
@@ -112,7 +112,6 @@ public class listaSocios extends javax.swing.JInternalFrame {
     }
     
     private void cargarSocios(){
-        borrarFilaTabla();
         listaSocios = (ArrayList<Socio>) socioData.listarSocios();
         for(Socio s : listaSocios){
             int id = s.getId_socio();

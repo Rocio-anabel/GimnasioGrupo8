@@ -77,7 +77,7 @@ public class GimnasioGrupo8 {
         cd.guardarClase(musculacion);
         
         System.out.println(cd.buscarClasePorNombre("pilates"));
-        System.out.println(cd.buscarClasePorHorario(LocalTime.of(18, 00)));
+        System.out.println(cd.buscarClasePorHorario(LocalTime.of(18, 00),DayOfWeek.MONDAY));
         System.out.println(cd.buscarClasePorEntrenador(1));
         
         System.out.println("Lista de clases");

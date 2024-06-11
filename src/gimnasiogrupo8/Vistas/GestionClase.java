@@ -1,11 +1,14 @@
 
 package gimnasiogrupo8.Vistas;
 
+
 import gimnasiogrupo8.accesoAData.ClaseData;
 import gimnasiogrupo8.accesoAData.EntrenadoresData;
 import gimnasiogrupo8.entidad.Clase;
 import gimnasiogrupo8.entidad.Entrenador;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
 
@@ -53,7 +56,8 @@ public class GestionClase extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jrEstado = new javax.swing.JRadioButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jchora = new javax.swing.JComboBox<>();
+        jcdia = new javax.swing.JComboBox<>();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -104,8 +108,18 @@ public class GestionClase extends javax.swing.JInternalFrame {
         });
 
         jbBuscarE.setText("Buscar");
+        jbBuscarE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarEActionPerformed(evt);
+            }
+        });
 
         jbBuscarH.setText("Buscar");
+        jbBuscarH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarHActionPerformed(evt);
+            }
+        });
 
         jbNuevo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jbNuevo.setText("Nuevo");
@@ -117,6 +131,11 @@ public class GestionClase extends javax.swing.JInternalFrame {
 
         jbEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jbSalir.setText("Salir");
@@ -132,7 +151,9 @@ public class GestionClase extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" }));
+        jchora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" }));
+
+        jcdia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", " " }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,7 +184,10 @@ public class GestionClase extends javax.swing.JInternalFrame {
                             .addComponent(jtNombre)
                             .addComponent(jtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                             .addComponent(jrEstado)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jchora, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcdia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -203,12 +227,13 @@ public class GestionClase extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jbBuscarH)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68)
+                    .addComponent(jchora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcdia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
                     .addComponent(jrEstado))
@@ -237,57 +262,48 @@ public class GestionClase extends javax.swing.JInternalFrame {
         
         String nombre = jtNombre.getText();
         
-        String horario = jsHorario.;
+        LocalTime horario = LocalTime.parse(jchora.getSelectedItem().toString());
         Integer capacidad;
         
         try{
-        
         int id = Integer.parseInt(jtEntrenador.getText());  
         Entrenador entrenador = entre.buscarPorID(id);
         capacidad = Integer.parseInt(jtCapacidad.getText());
-        if(nombre.isEmpty() || id==0 || horario.isEmpty() || capacidad==0){
+        DayOfWeek dia = parsearDia(jcdia.getSelectedItem().toString());
+        if(nombre.isEmpty() || id==0 || capacidad==0){
         JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
         return;
         }
         if(clase == null){
-            clase = new Clase(nombre,entrenador,LocalTime.parse(horario),capacidad,true);
+            clase = new Clase(nombre,entrenador,horario,capacidad,dia,true);
+            claseData.guardarClase(clase);
+        }else{
             clase.setNombre(nombre);
+            clase.setId_clase(id);
+            clase.setHorario(horario);
+            clase.setEstado(true);
             clase.setEntrenador(entrenador);
-            clase.setHorario(LocalTime.parse(horario));
+            clase.setDia(dia);
             clase.setCapacidad(capacidad);
-            
-            
-        
+            claseData.modificarClase(clase);
         }
         } catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Debe ingresar un numero");
-                return;
-                }
-        
-        
-        
-        
-        
+        return;
+}          
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbBuscarNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarNActionPerformed
-            
-        String nombre;
-        int id = Integer.parseInt(jtEntrenador.getText());  
-        Entrenador entrenador = entre.buscarPorID(id);
-        nombre = jtNombre.getText();
-        clase = claseData.buscarClasePorNombre(nombre);
+        String nombre = jtNombre.getText();
+        clase = claseData.buscarClasePorNombre(nombre);   
         if(clase != null){
-            
-            jtEntrenador.setText(String.valueOf(entrenador.getId_Entrenador()));
-            jtHorario.setText(LocalTime.parse(clase.getHorario()));
+            jtEntrenador.setText(String.valueOf(clase.getEntrenador().getId_Entrenador()));
             jtCapacidad.setText(String.valueOf(clase.getCapacidad()));
-            
-        
-        
-        }else{
-            JOptionPane.showMessageDialog(null,"clase no encontrada");
-        
+            jrEstado.setSelected(true);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            String time = formatter.format(clase.getHorario());
+            jcdia.setSelectedItem(parsearDiav2(clase.getDia()));
+            jchora.setSelectedItem(time);
         }
     }//GEN-LAST:event_jbBuscarNActionPerformed
 
@@ -299,17 +315,89 @@ public class GestionClase extends javax.swing.JInternalFrame {
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
-public void limpiarCampos(){
+
+    private void jbBuscarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarEActionPerformed
+        // TODO add your handling code here:
+         int id = Integer.parseInt(jtEntrenador.getText());
+         Entrenador entrenador = entre.buscarPorID(id);
+         clase = claseData.buscarClasePorEntrenador(id);
+         if(clase != null){
+            jtNombre.setText(clase.getNombre());
+            jtCapacidad.setText(String.valueOf(clase.getCapacidad()));
+            jrEstado.setSelected(true);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            String time = formatter.format(clase.getHorario());
+            jcdia.setSelectedItem(parsearDiav2(clase.getDia()));
+            jchora.setSelectedItem(time);
+        }else{
+            JOptionPane.showMessageDialog(null,"clase no encontrada");
+        }
+        
+    }//GEN-LAST:event_jbBuscarEActionPerformed
+
+    private void jbBuscarHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarHActionPerformed
+        // TODO add your handling code here:
+        String hora = jchora.getSelectedItem().toString();
+        String dia = jcdia.getSelectedItem().toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime time = LocalTime.parse(hora, formatter);
+        clase = claseData.buscarClasePorHorario(time, parsearDia(dia));
+        
+        if(clase != null){
+            jtNombre.setText(clase.getNombre());
+            jtCapacidad.setText(String.valueOf(clase.getCapacidad()));
+            jtEntrenador.setText(String.valueOf(clase.getEntrenador().getId_Entrenador()));
+            jrEstado.setSelected(true);
+        }else{
+            JOptionPane.showMessageDialog(null,"clase no encontrada");
+        }        
+    }//GEN-LAST:event_jbBuscarHActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        // TODO add your handling code here:
+        int idClase = clase.getId_clase();
+        if(clase != null){
+            claseData.eliminarClase(idClase);
+            clase = null;
+            limpiarCampos();
+            JOptionPane.showMessageDialog(null,"Clase eliminada");
+        }else{
+            JOptionPane.showMessageDialog(null,"Clase no encontrada");
+        }   
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    public void limpiarCampos(){
         jtNombre.setText("");
         jtEntrenador.setText("");
-        jtHorario.setText("");
-        jtCapacidad.setText("");
-        
+        jchora.setSelectedIndex(0);
+        jcdia.setSelectedIndex(0);
+        jtCapacidad.setText("");  
     }
+
+public DayOfWeek parsearDia(String dia){
+    switch(dia){
+        case "Lunes" : return DayOfWeek.MONDAY;
+        case "Martes" : return DayOfWeek.TUESDAY;
+        case "Miercoles" : return DayOfWeek.WEDNESDAY;
+        case "Jueves" : return DayOfWeek.THURSDAY;
+        case "Viernes" : return DayOfWeek.FRIDAY;    
+    }
+    return null;
+}
+
+public String parsearDiav2(DayOfWeek dia){
+    switch(dia){
+        case MONDAY : return "Lunes";
+        case TUESDAY : return "Martes";
+        case WEDNESDAY : return "Miercoles";
+        case THURSDAY : return "Jueves";
+        case FRIDAY : return "Viernes";
+    }
+    return null;
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDayChooser jDayChooser1;
     private com.toedter.calendar.JDayChooser jDayChooser2;
     private javax.swing.JLabel jLabel1;
@@ -326,6 +414,8 @@ public void limpiarCampos(){
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JComboBox<String> jcdia;
+    private javax.swing.JComboBox<String> jchora;
     private javax.swing.JRadioButton jrEstado;
     private javax.swing.JTextField jtCapacidad;
     private javax.swing.JTextField jtEntrenador;
