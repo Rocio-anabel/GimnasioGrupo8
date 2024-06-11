@@ -32,6 +32,9 @@ public class GestionClase extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jDayChooser1 = new com.toedter.calendar.JDayChooser();
+        jDayChooser2 = new com.toedter.calendar.JDayChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jtNombre = new javax.swing.JTextField();
@@ -39,7 +42,6 @@ public class GestionClase extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jtEntrenador = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jtHorario = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jtCapacidad = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -51,6 +53,9 @@ public class GestionClase extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jrEstado = new javax.swing.JRadioButton();
+        jComboBox2 = new javax.swing.JComboBox<>();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Gestión de Clase");
@@ -74,13 +79,6 @@ public class GestionClase extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Horario:");
-
-        jtHorario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jtHorario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtHorarioActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Capacidad:");
@@ -134,6 +132,8 @@ public class GestionClase extends javax.swing.JInternalFrame {
             }
         });
 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,10 +141,13 @@ public class GestionClase extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(158, 158, 158)
+                                .addComponent(jLabel1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(jLabel3)))
                         .addGap(4, 4, 4))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
@@ -158,9 +161,9 @@ public class GestionClase extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtEntrenador)
                             .addComponent(jtNombre)
-                            .addComponent(jtHorario)
                             .addComponent(jtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(jrEstado))))
+                            .addComponent(jrEstado)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -199,17 +202,17 @@ public class GestionClase extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscarH))
-                .addGap(38, 38, 38)
+                    .addComponent(jbBuscarH)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
                     .addComponent(jrEstado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGuardar)
                     .addComponent(jbNuevo)
@@ -225,10 +228,6 @@ public class GestionClase extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtNombreActionPerformed
 
-    private void jtHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtHorarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtHorarioActionPerformed
-
     private void jrEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jrEstadoActionPerformed
@@ -238,7 +237,7 @@ public class GestionClase extends javax.swing.JInternalFrame {
         
         String nombre = jtNombre.getText();
         
-        String horario = jtHorario.getText();
+        String horario = jsHorario.;
         Integer capacidad;
         
         try{
@@ -274,12 +273,13 @@ public class GestionClase extends javax.swing.JInternalFrame {
     private void jbBuscarNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarNActionPerformed
             
         String nombre;
-        
+        int id = Integer.parseInt(jtEntrenador.getText());  
+        Entrenador entrenador = entre.buscarPorID(id);
         nombre = jtNombre.getText();
         clase = claseData.buscarClasePorNombre(nombre);
         if(clase != null){
-        
-            jtEntrenador.setText(clase.getEntrenador());
+            
+            jtEntrenador.setText(String.valueOf(entrenador.getId_Entrenador()));
             jtHorario.setText(LocalTime.parse(clase.getHorario()));
             jtCapacidad.setText(String.valueOf(clase.getCapacidad()));
             
@@ -308,6 +308,10 @@ public void limpiarCampos(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private com.toedter.calendar.JDayChooser jDayChooser1;
+    private com.toedter.calendar.JDayChooser jDayChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -325,7 +329,6 @@ public void limpiarCampos(){
     private javax.swing.JRadioButton jrEstado;
     private javax.swing.JTextField jtCapacidad;
     private javax.swing.JTextField jtEntrenador;
-    private javax.swing.JTextField jtHorario;
     private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
 }
