@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class ClaseData {
     
     public void guardarClase(Clase clase){
         
-        String sql = "INSERT INTO clases(Nombre, ID_Entrenador, Horario, Capacidad, Estado) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO clases(Nombre, ID_Entrenador, Horario, Capacidad, Estado,Dia) VALUES (?,?,?,?,?,?)";
                 
         try {
             PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
@@ -36,6 +37,7 @@ public class ClaseData {
             ps.setTime(3, Time.valueOf(clase.getHorario()));
             ps.setInt(4,clase.getCapacidad());
             ps.setBoolean(5, clase.isEstado());
+            ps.setInt(6,clase.getDia().getValue());
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -53,39 +55,36 @@ public class ClaseData {
     
     public List<Clase> listaClase(){
         
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1";
         List<Clase> clases= new ArrayList<>();
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            Entrenador entrenador = new Entrenador();
+            EntrenadoresData ed = new EntrenadoresData();
             while(rs.next()){
-            
+                Entrenador entrenador = ed.buscarPorID(rs.getInt("ID_Entrenador"));
                 Clase clase = new Clase();
                 clase.setId_clase(rs.getInt("ID_Clase"));
                 clase.setNombre(rs.getString("Nombre"));
-                entrenador.setId_Entrenador(rs.getInt("ID_Entrenador"));
+                clase.setEntrenador(entrenador);
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
-                
+                clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
                 clases.add(clase);
-            
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la Clase "+ex.getMessage());
         }
         return clases;
-    
-    
     }
     
     public Clase buscarClasePorNombre(String nombre){
         
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1 AND Nombre like ?";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1 AND Nombre like ?";
         
         PreparedStatement ps = null;
         
@@ -104,6 +103,7 @@ public class ClaseData {
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
+                clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
                 
                 
             
@@ -121,7 +121,7 @@ public class ClaseData {
     public Clase buscarClasePorEntrenador(int entrenador){
         
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1"
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1"
                 + " AND ID_Entrenador = ?";
         
         PreparedStatement ps = null;
@@ -141,6 +141,7 @@ public class ClaseData {
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
+                clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
                 
                 
             
@@ -158,7 +159,7 @@ public class ClaseData {
     public Clase buscarClasePorHorario(LocalTime horario){
         
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1 AND Horario = ?";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1 AND Horario = ?";
         
         PreparedStatement ps = null;
         
@@ -177,6 +178,7 @@ public class ClaseData {
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
+                clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
                 
                 
             
@@ -192,9 +194,8 @@ public class ClaseData {
     
     }
     
-    public void modificarClase(Clase clase){
-        
-        String sql = "UPDATE clases SET Nombre=?,ID_Entrenador=?,Horario=?,Capacidad=?,Estado=? WHERE Estado=1 AND ID_Clase=?";
+    public void modificarClase(Clase clase){ 
+        String sql = "UPDATE clases SET Nombre=?,ID_Entrenador=?,Horario=?,Capacidad=?,Estado=?,Dia=? WHERE Estado=1 AND ID_Clase=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,clase.getNombre());
@@ -203,6 +204,8 @@ public class ClaseData {
             ps.setInt(4,clase.getCapacidad());
             ps.setBoolean(5, clase.isEstado());
             ps.setInt(6, clase.getId_clase());
+            ps.setInt(7,clase.getDia().getValue());
+            
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Clase Modificado");
@@ -210,11 +213,9 @@ public class ClaseData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la Clase "+ex.getMessage());
         }
-    
     }
     
     public void eliminarClase(int id){
-    
         String sql = "UPDATE clases SET Estado=0 WHERE ID_Clase=?";
         PreparedStatement ps ;
         try {
