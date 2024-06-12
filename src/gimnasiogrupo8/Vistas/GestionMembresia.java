@@ -9,6 +9,7 @@ import gimnasiogrupo8.accesoAData.SociosData;
 import gimnasiogrupo8.entidad.Membresia;
 import gimnasiogrupo8.entidad.Socio;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.swing.JOptionPane;
 
 /**
@@ -195,13 +196,16 @@ public class GestionMembresia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-          try {
+          java.util.Date fechaI = jtInicio.getDate();
+          java.util.Date fechaF = jtFin.getDate();
+          
+        try {
             int socio=Integer.parseInt(jtSocio.getText());
             Socio miembroso=sociodata.buscarSocioPorId(socio);
             int costo=Integer.parseInt(jtCosto.getText());
             int pases=Integer.parseInt(jtPases.getText());
-            LocalDate inicio=LocalDate.parse((CharSequence) jtInicio.getCalendar());
-            LocalDate fin=LocalDate.parse((CharSequence) jtFin.getCalendar() );
+            LocalDate inicio=fechaI.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fin=fechaF.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             if(socio==0 || costo==0 || pases==0 ) {
                 JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
                 return; 
@@ -216,10 +220,7 @@ public class GestionMembresia extends javax.swing.JInternalFrame {
                 membresia.setFecha_fin(fin);
                 membresia.setEstado(true);
                 membresiaData.modificarMembresia(membresia);
-                
-            }
-                
-                        
+            }                
         } catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Debe ingresar un numero");
         return;
@@ -231,6 +232,7 @@ public class GestionMembresia extends javax.swing.JInternalFrame {
          try {
         int idSocio = Integer.parseInt(jtSocio.getText());
         Membresia membresia = membresiaData.buscarMembresiaPorSocio(idSocio);
+        this.membresia = membresia;
         
         if (membresia != null) {
             jtCosto.setText(String.valueOf(membresia.getCosto()));

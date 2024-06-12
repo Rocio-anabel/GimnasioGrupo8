@@ -34,11 +34,13 @@ public class Menu extends javax.swing.JFrame {
         jMenuItemEntrenador = new javax.swing.JMenuItem();
         jMenuItemClase = new javax.swing.JMenuItem();
         jMenuItemMembresia = new javax.swing.JMenuItem();
+        jMenuItemControlAsistencia = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItemListarSocios = new javax.swing.JMenuItem();
         jMenuItemListarEntrenadores = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItemClases = new javax.swing.JMenuItem();
+        jMenuItemListarAsistencia = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +99,14 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemMembresia);
 
+        jMenuItemControlAsistencia.setText("Asistencia");
+        jMenuItemControlAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemControlAsistenciaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemControlAsistencia);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Listar");
@@ -142,6 +152,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItemClases);
+
+        jMenuItemListarAsistencia.setText("Listar Asistencias");
+        jMenuItemListarAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListarAsistenciaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemListarAsistencia);
 
         jMenuBar1.add(jMenu2);
 
@@ -255,6 +273,26 @@ public class Menu extends javax.swing.JFrame {
         jDesktopPane1.moveToFront(alu); 
     }//GEN-LAST:event_jMenuItemMembresiaActionPerformed
 
+    private void jMenuItemControlAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemControlAsistenciaActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        ControlAsistencia alu=new ControlAsistencia();
+        alu.setVisible(true);
+        jDesktopPane1.add(alu);
+        jDesktopPane1.moveToFront(alu);  
+    }//GEN-LAST:event_jMenuItemControlAsistenciaActionPerformed
+
+    private void jMenuItemListarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarAsistenciaActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        ListaAsistencia alu=new ListaAsistencia();
+        alu.setVisible(true);
+        jDesktopPane1.add(alu);
+        jDesktopPane1.moveToFront(alu);  
+    }//GEN-LAST:event_jMenuItemListarAsistenciaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -298,7 +336,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemClase;
     private javax.swing.JMenuItem jMenuItemClases;
+    private javax.swing.JMenuItem jMenuItemControlAsistencia;
     private javax.swing.JMenuItem jMenuItemEntrenador;
+    private javax.swing.JMenuItem jMenuItemListarAsistencia;
     private javax.swing.JMenuItem jMenuItemListarEntrenadores;
     private javax.swing.JMenuItem jMenuItemListarSocios;
     private javax.swing.JMenuItem jMenuItemMembresia;

@@ -178,7 +178,7 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Hoy no se dicta la clase solicitada");
                 return;
             }
-            if (!clase.getHorario().isBefore(fechayhoraActual.toLocalTime())) {
+            if (!clase.getHorario().isAfter(fechayhoraActual.toLocalTime())) {
                 JOptionPane.showMessageDialog(this, "La clase ya terminó no puede registrarse");
                 return;
             }

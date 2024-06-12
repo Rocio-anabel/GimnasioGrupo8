@@ -49,6 +49,7 @@ public class ListaAsistencia extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Lista de Asistencias");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -86,15 +87,11 @@ public class ListaAsistencia extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbBuscar)
                 .addGap(38, 38, 38))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +122,7 @@ public class ListaAsistencia extends javax.swing.JInternalFrame {
         
         for (Asistencia a : asistenciasFecha) {
             int id = a.getIdAsistencia();
-            String socio = a.getSocio().getNombre() + a.getSocio().getApellido();
+            String socio = a.getSocio().getNombre() + " " +a.getSocio().getApellido();
             String clase = a.getClase().getNombre();
             int membresia = a.getMembresia().getId_membresia();
             LocalDateTime fechahora = a.getFechaHora();
@@ -166,7 +163,7 @@ public class ListaAsistencia extends javax.swing.JInternalFrame {
     private void cargarAsistencias() {
         for (Asistencia a : asistencias) {
             int id = a.getIdAsistencia();
-            String socio = a.getSocio().getNombre() + a.getSocio().getApellido();
+            String socio = a.getSocio().getNombre() + " " + a.getSocio().getApellido();
             String clase = a.getClase().getNombre();
             int membresia = a.getMembresia().getId_membresia();
             LocalDateTime fechahora = a.getFechaHora();

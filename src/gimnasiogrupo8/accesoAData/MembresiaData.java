@@ -29,7 +29,7 @@ public class MembresiaData {
     }
      //Guardar Membresia  
      public void guardarMembresia(Membresia membresia) {
-         String sql="INSERT INTO `membresias`(`ID_Membresía`, `ID_Socio`, `Costo`, `CantidadPases`, `Fecha_Inicio`, `Fecha_Fin`, `Estado`) VALUES (?,?,?,?,?,?,?)";    
+         String sql="INSERT INTO membresias(ID_Membresía, ID_Socio, Costo, CantidadPases, Fecha_Inicio, Fecha_Fin,Estado) VALUES (?,?,?,?,?,?,?)";    
        
         
          try {
@@ -118,6 +118,7 @@ public class MembresiaData {
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SociosData sd = new SociosData();
