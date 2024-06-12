@@ -74,6 +74,14 @@
                 <Property name="text" type="java.lang.String" value="Listar Membresias"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemClases">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar clases"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemClasesActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

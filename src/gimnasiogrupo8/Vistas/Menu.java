@@ -38,6 +38,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItemListarSocios = new javax.swing.JMenuItem();
         jMenuItemListarEntrenadores = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItemClases = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,6 +125,14 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem3.setText("Listar Membresias");
         jMenu2.add(jMenuItem3);
 
+        jMenuItemClases.setText("Listar clases");
+        jMenuItemClases.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemClasesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemClases);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -208,6 +217,16 @@ public class Menu extends javax.swing.JFrame {
         jDesktopPane1.moveToFront(alu); 
     }//GEN-LAST:event_jMenuItemListarEntrenadoresActionPerformed
 
+    private void jMenuItemClasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClasesActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        ListaClase alu=new ListaClase();
+        alu.setVisible(true);
+        jDesktopPane1.add(alu);
+        jDesktopPane1.moveToFront(alu);  
+    }//GEN-LAST:event_jMenuItemClasesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -250,6 +269,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemClase;
+    private javax.swing.JMenuItem jMenuItemClases;
     private javax.swing.JMenuItem jMenuItemEntrenador;
     private javax.swing.JMenuItem jMenuItemListarEntrenadores;
     private javax.swing.JMenuItem jMenuItemListarSocios;

@@ -232,21 +232,63 @@ public class SocioVista extends javax.swing.JInternalFrame {
 
     private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed
         // TODO add your handling code here:
-        String nombre = jNombre.getText();
-        String apellido = jApellido.getText();
-        String DNI = jDNI.getText();
-        String Telefono = jTelefono.getText();
-        String correo = jCorreo.getText();
+        String nombre = jNombre.getText().trim();
+        String apellido = jApellido.getText().trim();
+        String DNI = jDNI.getText().trim();
+        String Telefono = jTelefono.getText().trim();
+        String correo = jCorreo.getText().trim();
         Integer Edad;
         
     try {
-        Edad = Integer.parseInt(jEdad.getText());
+            Edad = Integer.parseInt(jEdad.getText().trim());
             if(nombre.isEmpty() || apellido.isEmpty() || DNI.isEmpty() || Telefono.isEmpty() || correo.isEmpty() || Edad == 0){
             JOptionPane.showMessageDialog(null,"Todos los campos deben estar completos");
             return;
         }
             
-      if(socio == null){
+    if (!nombre.matches("^[a-zA-Z]+$")) {
+        JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
+        jNombre.setText("");
+        jNombre.requestFocus();
+        return;
+    }
+    
+    if (!apellido.matches("^[a-zA-Z]+$")) {
+        JOptionPane.showMessageDialog(null, "El apellido solo debe contener letras.");
+        jApellido.setText("");
+        jApellido.requestFocus();
+        return;
+    }
+      
+    if(Edad <= 0){
+          JOptionPane.showMessageDialog(null, "La edad debe ser un número positivo.");
+          jEdad.setText("");
+          jEdad.requestFocus();
+          return;
+      }
+    
+    if (!Telefono.matches("^\\d+$")) {
+        JOptionPane.showMessageDialog(null, "El teléfono solo debe contener números.");
+        jTelefono.setText("");
+        jTelefono.requestFocus();
+        return;
+    }
+    
+    if (!DNI.matches("^\\d+$")) {
+        JOptionPane.showMessageDialog(null, "El DNI solo debe contener números.");
+        jDNI.setText("");
+        jDNI.requestFocus();
+        return;
+    }
+     
+    if(!correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+          JOptionPane.showMessageDialog(null, "El correo electrónico no tiene un formato válido.");
+          jCorreo.setText("");
+          jCorreo.requestFocus();
+          return;
+      }
+            
+    if(socio == null){
           socio = new Socio(DNI,nombre,apellido,Edad,correo,Telefono,true);
           socioData.guardarSocio(socio);
       }else{
@@ -257,16 +299,12 @@ public class SocioVista extends javax.swing.JInternalFrame {
           socio.setEdad(Edad);
           socio.setDni(DNI);
           socioData.modificarSocio(socio);
-      }
-        
+      }   
+      JOptionPane.showMessageDialog(null, "El socio se guardó correctamente.");
+      limpiarCampos();
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "La edad debe ser un número válido.");
-    }
-        
-
-    
-    
-        
+    }         
     }//GEN-LAST:event_jGuardarActionPerformed
 
     private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed

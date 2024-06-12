@@ -228,6 +228,21 @@ public class GestionEntrenadores extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "No puede haber campos vacíos");
                 return;
             }
+            
+            if (!nombre.matches("^[a-zA-Z]+$")) {
+                JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
+                jtNombre.setText("");
+                jtNombre.requestFocus();
+                return;
+            }
+            
+            if (!apellido.matches("^[a-zA-Z]+$")) {
+                JOptionPane.showMessageDialog(null, "El apellido solo debe contener letras.");
+                jtApellido.setText("");
+                jtApellido.requestFocus();
+                return;
+            }
+                      
             if (entrenadorActual == null) {
                 entrenadorActual = new Entrenador(Integer.toString(dni), nombre, apellido, especialidad, true);
                 ed.guardarEntrenador(entrenadorActual);

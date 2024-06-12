@@ -60,7 +60,7 @@ public class ListaClase extends javax.swing.JInternalFrame {
         for(Clase s : listaClase){
             int id = s.getId_clase();
             String nombre = s.getNombre();
-            Entrenador entrenador = s.getEntrenador();
+            int entrenador = s.getEntrenador().getId_Entrenador();    
             int capacidad = s.getCapacidad();
             LocalTime hora = s.getHorario();
             DayOfWeek dia = s.getDia();

@@ -270,10 +270,20 @@ public class GestionClase extends javax.swing.JInternalFrame {
         Entrenador entrenador = entre.buscarPorID(id);
         capacidad = Integer.parseInt(jtCapacidad.getText());
         DayOfWeek dia = parsearDia(jcdia.getSelectedItem().toString());
+        
         if(nombre.isEmpty() || id==0 || capacidad==0){
         JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
         return;
         }
+        
+        if (!nombre.matches("^[a-zA-Z]+$")) {
+            JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
+            jtNombre.setText("");
+            jtNombre.requestFocus();
+            return;
+        }
+        
+        
         if(clase == null){
             clase = new Clase(nombre,entrenador,horario,capacidad,dia,true);
             claseData.guardarClase(clase);
