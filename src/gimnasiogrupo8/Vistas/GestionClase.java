@@ -286,7 +286,7 @@ public class GestionClase extends javax.swing.JInternalFrame {
         
         
         if(clase == null){
-            if (!existeHorario(horario)) { 
+            if (!existeHorario(horario, dia)) { 
                 clase = new Clase(nombre,entrenador,horario,capacidad,dia,true);
                 claseData.guardarClase(clase);
             } else {
@@ -411,11 +411,11 @@ public String parsearDiav2(DayOfWeek dia){
     return null;
 }
 
-public boolean existeHorario(LocalTime horario){
+public boolean existeHorario(LocalTime horario, DayOfWeek dia){
    boolean existe = false;
     ArrayList<Clase> clases = (ArrayList<Clase>)claseData.listaClase();
     for (Clase c : clases) {
-        if (c.getHorario() == horario) {
+        if (c.getHorario() == horario && c.getDia() == dia) {
             existe = true;
             break;
         }
