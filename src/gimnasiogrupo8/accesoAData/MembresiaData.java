@@ -133,6 +133,34 @@ public class MembresiaData {
             JOptionPane.showMessageDialog(null, "Error al modificar la membresía en la tabla Membresías");
         }
     }
+    
+    public Membresia buscarMembresiaporID(int idMembresia){
+        Membresia membresia = null;
+        String sql = "SELECT * FROM membresias WHERE ID_Membresía = ? AND Estado = 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMembresia);
+            ResultSet rs = ps.executeQuery();
 
+            if (rs.next()) {
+                SociosData sd = new SociosData();
+                Socio socio = sd.buscarSocioPorId(rs.getInt("ID_Socio"));
+                membresia = new Membresia();
+                membresia.setId_membresia(rs.getInt("ID_Membresía"));
+                membresia.setSocio(socio);
+                membresia.setCosto(rs.getDouble("Costo"));
+                membresia.setCantidadPases(rs.getInt("CantidadPases"));
+                membresia.setFecha_inicio(rs.getDate("Fecha_Inicio").toLocalDate());
+                membresia.setFecha_fin(rs.getDate("Fecha_Fin").toLocalDate());
+                membresia.setEstado(rs.getBoolean("Estado"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Membresía no existente");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar membresía en la tabla Membresías");
+        }
+        return membresia;
+    }
     
 }

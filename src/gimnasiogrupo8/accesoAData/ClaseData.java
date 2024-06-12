@@ -192,6 +192,41 @@ public class ClaseData {
     
     }
     
+    public Clase buscarClasePorID(int idClase){
+        Clase clase = null;
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1 AND ID_Clase = ?";
+        
+        PreparedStatement ps = null;
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,idClase);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                EntrenadoresData ed = new EntrenadoresData();
+                Entrenador entrenador = ed.buscarPorID(rs.getInt("ID_Entrenador"));
+                clase = new Clase();
+                clase.setId_clase(rs.getInt("ID_Clase"));
+                clase.setNombre(rs.getString("Nombre"));
+                clase.setEntrenador(entrenador);
+                clase.setHorario(rs.getTime("Horario").toLocalTime());
+                clase.setCapacidad(rs.getInt("Capacidad"));
+                clase.setEstado(true);
+                clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
+                
+                
+            
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe la Clase");    
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la Clase "+ex.getMessage());
+        }
+            return clase;
+    }
+    
     public void modificarClase(Clase clase){ 
         String sql = "UPDATE clases SET Nombre=?,ID_Entrenador=?,Horario=?,Capacidad=?,Estado=?,Dia=? WHERE Estado=1 AND ID_Clase=?";
         try {
