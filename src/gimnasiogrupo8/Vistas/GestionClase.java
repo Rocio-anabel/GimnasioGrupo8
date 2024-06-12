@@ -9,6 +9,7 @@ import gimnasiogrupo8.entidad.Entrenador;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
 
@@ -285,8 +286,12 @@ public class GestionClase extends javax.swing.JInternalFrame {
         
         
         if(clase == null){
-            clase = new Clase(nombre,entrenador,horario,capacidad,dia,true);
-            claseData.guardarClase(clase);
+            if (!existeHorario(horario)) { 
+                clase = new Clase(nombre,entrenador,horario,capacidad,dia,true);
+                claseData.guardarClase(clase);
+            } else {
+                JOptionPane.showMessageDialog(null, "No puede haber dos clases en un mismo horario");
+            }
         }else{
             clase.setNombre(nombre);
             clase.setId_clase(id);
@@ -404,6 +409,18 @@ public String parsearDiav2(DayOfWeek dia){
         case FRIDAY : return "Viernes";
     }
     return null;
+}
+
+public boolean existeHorario(LocalTime horario){
+   boolean existe = false;
+    ArrayList<Clase> clases = (ArrayList<Clase>)claseData.listaClase();
+    for (Clase c : clases) {
+        if (c.getHorario() == horario) {
+            existe = true;
+            break;
+        }
+    }
+   return existe;
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
