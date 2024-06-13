@@ -168,9 +168,7 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
             Socio socio = sd.buscarSocioPorId(idSocio);
             Clase clase = cd.buscarClasePorID(idClase);
             Membresia membresia = md.buscarMembresiaporID(idMembresia);
-            
-            
-            
+             
             if (socio == null || clase == null || membresia == null) {
                 return;
             }
@@ -187,12 +185,10 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
                 ad.registrarAsistencia(asitencia);
             } else {
                 JOptionPane.showMessageDialog(this,"Membresía no válida para ese socio");
-            }
-            
-            
+            }  
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un número válidlo");
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número válido");
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed
 
