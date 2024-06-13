@@ -178,10 +178,10 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Hoy no se dicta la clase solicitada");
                 return;
             }
-//            if (!clase.getHorario().isAfter(fechayhoraActual.toLocalTime())) {
-//                JOptionPane.showMessageDialog(this, "La clase ya terminó no puede registrarse");
-//                return;
-//            }
+            if (!clase.getHorario().isAfter(fechayhoraActual.toLocalTime())) {
+                JOptionPane.showMessageDialog(this, "La clase ya terminó no puede registrarse");
+                return;
+            }
             if (membresia.getSocio().getId_socio() == socio.getId_socio()) { 
                 Asistencia asitencia = new Asistencia(socio, clase, membresia, fechayhoraActual);
                 ad.registrarAsistencia(asitencia);
