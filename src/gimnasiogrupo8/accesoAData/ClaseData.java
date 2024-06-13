@@ -214,9 +214,6 @@ public class ClaseData {
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
                 clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
-                
-                
-            
             }else{
                 JOptionPane.showMessageDialog(null, "No existe la Clase");    
             }
@@ -228,17 +225,15 @@ public class ClaseData {
     }
     
     public void modificarClase(Clase clase){ 
-        String sql = "UPDATE clases SET Nombre=?,ID_Entrenador=?,Horario=?,Capacidad=?,Estado=?,Dia=? WHERE Estado=1 AND ID_Clase=?";
+        String sql = "UPDATE clases SET Nombre=?,ID_Entrenador=?,Horario=?,Capacidad=?,Dia=? WHERE Estado=1 AND ID_Clase=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,clase.getNombre());
             ps.setInt(2, clase.getEntrenador().getId_Entrenador());
             ps.setTime(3, Time.valueOf(clase.getHorario()));
             ps.setInt(4,clase.getCapacidad());
-            ps.setBoolean(5, clase.isEstado());
+            ps.setInt(5,clase.getDia().getValue());
             ps.setInt(6, clase.getId_clase());
-            ps.setInt(7,clase.getDia().getValue());
-            
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Clase Modificado");

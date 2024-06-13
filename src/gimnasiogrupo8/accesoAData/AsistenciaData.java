@@ -55,14 +55,15 @@ public class AsistenciaData {
                     }
 
                     int cantPases = membresia.getCantidadPases();
-                    membresia.setCantidadPases(cantPases--);
+                    cantPases = cantPases - 1;
+                    membresia.setCantidadPases(cantPases);
+                    MembresiaData mb = new MembresiaData();
+                    mb.modificarMembresia(membresia);
                      if (cantPases == 0) {
-                         membresia.setEstado(false);
-                         JOptionPane.showMessageDialog(null, "Membresía caducada");
-                     }
-
+                         mb.eliminarMembresia(idMembresia);
+                     } 
                     ps.close(); 
-                }
+                }     
             }
                 
                

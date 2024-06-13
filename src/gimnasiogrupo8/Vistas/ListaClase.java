@@ -64,7 +64,7 @@ public class ListaClase extends javax.swing.JInternalFrame {
             int capacidad = s.getCapacidad();
             LocalTime hora = s.getHorario();
             DayOfWeek dia = s.getDia();
-            modelo.addRow(new Object[]{id,nombre,entrenador,capacidad,hora,dia});
+            modelo.addRow(new Object[]{id,nombre,entrenador,hora,dia,capacidad});
         }
     }
     

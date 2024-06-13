@@ -10,6 +10,7 @@ import gimnasiogrupo8.entidad.Membresia;
 import gimnasiogrupo8.entidad.Socio;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -175,7 +176,7 @@ public class GestionMembresia extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jtFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
@@ -196,17 +197,17 @@ public class GestionMembresia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-          java.util.Date fechaI = jtInicio.getDate();
-          java.util.Date fechaF = jtFin.getDate();
-          
+            
         try {
+            Date fechaI = jtInicio.getDate();
+            Date fechaF = jtFin.getDate(); 
             int socio=Integer.parseInt(jtSocio.getText());
             Socio miembroso=sociodata.buscarSocioPorId(socio);
             int costo=Integer.parseInt(jtCosto.getText());
             int pases=Integer.parseInt(jtPases.getText());
             LocalDate inicio=fechaI.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate fin=fechaF.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if(socio==0 || costo==0 || pases==0 ) {
+            if(socio==0 || costo==0 || pases==0) {
                 JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
                 return; 
             } if(membresia==null) {
@@ -223,8 +224,9 @@ public class GestionMembresia extends javax.swing.JInternalFrame {
             }                
         } catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Debe ingresar un numero");
-        return;
-}
+    }catch(NullPointerException npe){
+        JOptionPane.showMessageDialog(null, "Usted debe seleccionar una fecha");
+    }
             
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -277,6 +279,7 @@ public class GestionMembresia extends javax.swing.JInternalFrame {
         jtInicio.setDate(null);
         jtFin.setDate(null);
     }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

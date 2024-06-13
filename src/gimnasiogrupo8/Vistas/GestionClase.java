@@ -283,8 +283,7 @@ public class GestionClase extends javax.swing.JInternalFrame {
             jtNombre.requestFocus();
             return;
         }
-        
-        
+          
         if(clase == null){
             if (!existeHorario(horario, dia)) { 
                 clase = new Clase(nombre,entrenador,horario,capacidad,dia,true);
@@ -294,7 +293,6 @@ public class GestionClase extends javax.swing.JInternalFrame {
             }
         }else{
             clase.setNombre(nombre);
-            clase.setId_clase(id);
             clase.setHorario(horario);
             clase.setEstado(true);
             clase.setEntrenador(entrenador);
@@ -304,13 +302,12 @@ public class GestionClase extends javax.swing.JInternalFrame {
         }
         } catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Debe ingresar un numero");
-        return;
 }          
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbBuscarNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarNActionPerformed
         String nombre = jtNombre.getText();
-        clase = claseData.buscarClasePorNombre(nombre);   
+        clase = claseData.buscarClasePorNombre(nombre);
         if(clase != null){
             jtEntrenador.setText(String.valueOf(clase.getEntrenador().getId_Entrenador()));
             jtCapacidad.setText(String.valueOf(clase.getCapacidad()));
