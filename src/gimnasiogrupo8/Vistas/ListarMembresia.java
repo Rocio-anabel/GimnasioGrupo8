@@ -164,11 +164,7 @@ private void cargarMembresia(){
             int cost=(int) membresia.getCosto();
             int cantpases=membresia.getCantidadPases();
             LocalDate inicio=membresia.getFecha_inicio();
-            LocalDate fin=membresia.getFecha_fin();
-                    
-            
-            
-            
+            LocalDate fin=membresia.getFecha_fin(); 
             modelo.addRow(new Object[]{id, socio,cost,cantpases,inicio,fin});
         }
     }

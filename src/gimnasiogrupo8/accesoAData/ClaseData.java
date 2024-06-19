@@ -28,7 +28,7 @@ public class ClaseData {
     
     public void guardarClase(Clase clase){
         
-        String sql = "INSERT INTO clases(Nombre, ID_Entrenador, Horario, Capacidad, Estado,Dia) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO clases(Nombre, ID_Entrenador, Horario, Capacidad, Estado) VALUES (?,?,?,?,?)";
                 
         try {
             PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
@@ -37,7 +37,6 @@ public class ClaseData {
             ps.setTime(3, Time.valueOf(clase.getHorario()));
             ps.setInt(4,clase.getCapacidad());
             ps.setBoolean(5, clase.isEstado());
-            ps.setInt(6,clase.getDia().getValue());
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -55,7 +54,7 @@ public class ClaseData {
     
     public List<Clase> listaClase(){
         
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1";
         List<Clase> clases= new ArrayList<>();
         
         try {
@@ -71,7 +70,6 @@ public class ClaseData {
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
-                clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
                 clases.add(clase);
             }
             ps.close();
@@ -84,7 +82,7 @@ public class ClaseData {
     public Clase buscarClasePorNombre(String nombre){
         
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1 AND Nombre like ?";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1 AND Nombre like ?";
         
         PreparedStatement ps = null;
         
@@ -102,11 +100,7 @@ public class ClaseData {
                 clase.setEntrenador(entrenador);
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
-                clase.setEstado(true);
-                clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
-                
-                
-            
+                clase.setEstado(true); 
             }else{
                 JOptionPane.showMessageDialog(null, "No existe la Clase");    
             }
@@ -121,7 +115,7 @@ public class ClaseData {
     public Clase buscarClasePorEntrenador(int entrenador){
         
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1"
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1"
                 + " AND ID_Entrenador = ?";
         
         PreparedStatement ps = null;
@@ -141,10 +135,6 @@ public class ClaseData {
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
-                clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
-                
-                
-            
             }else{
                 JOptionPane.showMessageDialog(null, "No existe la Clase");    
             }
@@ -156,17 +146,16 @@ public class ClaseData {
     
     
     }
-    public Clase buscarClasePorHorario(LocalTime horario,DayOfWeek dia){
+    public Clase buscarClasePorHorario(LocalTime horario){
         
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1 AND Horario = ? AND Dia = ?";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1 AND Horario = ?";
         
         PreparedStatement ps = null;
         
         try {
             ps = con.prepareStatement(sql);
             ps.setTime(1,Time.valueOf(horario));
-            ps.setInt(2,dia.getValue());
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()){
@@ -179,7 +168,6 @@ public class ClaseData {
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
-                clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
             }else{
                 JOptionPane.showMessageDialog(null, "No existe la Clase");    
             }
@@ -194,7 +182,7 @@ public class ClaseData {
     
     public Clase buscarClasePorID(int idClase){
         Clase clase = null;
-        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado,Dia FROM clases WHERE Estado=1 AND ID_Clase = ?";
+        String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1 AND ID_Clase = ?";
         
         PreparedStatement ps = null;
         
@@ -213,7 +201,6 @@ public class ClaseData {
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
-                clase.setDia(DayOfWeek.of(rs.getInt("Dia")));
             }else{
                 JOptionPane.showMessageDialog(null, "No existe la Clase");    
             }
@@ -225,15 +212,14 @@ public class ClaseData {
     }
     
     public void modificarClase(Clase clase){ 
-        String sql = "UPDATE clases SET Nombre=?,ID_Entrenador=?,Horario=?,Capacidad=?,Dia=? WHERE Estado=1 AND ID_Clase=?";
+        String sql = "UPDATE clases SET Nombre=?,ID_Entrenador=?,Horario=?,Capacidad=? WHERE Estado=1 AND ID_Clase=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,clase.getNombre());
             ps.setInt(2, clase.getEntrenador().getId_Entrenador());
             ps.setTime(3, Time.valueOf(clase.getHorario()));
             ps.setInt(4,clase.getCapacidad());
-            ps.setInt(5,clase.getDia().getValue());
-            ps.setInt(6, clase.getId_clase());
+            ps.setInt(5, clase.getId_clase());
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Clase Modificado");

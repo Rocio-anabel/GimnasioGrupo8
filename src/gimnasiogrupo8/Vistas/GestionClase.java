@@ -22,9 +22,11 @@ public class GestionClase extends javax.swing.JInternalFrame {
         Clase clase = null;
         ClaseData claseData = new ClaseData();
         EntrenadoresData entre = new EntrenadoresData();
+        private ArrayList<Entrenador> listaE = (ArrayList<Entrenador>) entre.listarEntrenadores();
     
     public GestionClase() {
         initComponents();
+        cargarEntrenador();
     }
 
     /**
@@ -44,21 +46,19 @@ public class GestionClase extends javax.swing.JInternalFrame {
         jtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jtEntrenador = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jtCapacidad = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jbGuardar = new javax.swing.JButton();
         jbBuscarN = new javax.swing.JButton();
-        jbBuscarE = new javax.swing.JButton();
         jbBuscarH = new javax.swing.JButton();
         jbNuevo = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jrEstado = new javax.swing.JRadioButton();
         jchora = new javax.swing.JComboBox<>();
-        jcdia = new javax.swing.JComboBox<>();
+        jComboBoxEntrenador = new javax.swing.JComboBox<>();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -78,9 +78,7 @@ public class GestionClase extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("ID Entrenador:");
-
-        jtEntrenador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Entrenador:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Horario:");
@@ -105,13 +103,6 @@ public class GestionClase extends javax.swing.JInternalFrame {
         jbBuscarN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBuscarNActionPerformed(evt);
-            }
-        });
-
-        jbBuscarE.setText("Buscar");
-        jbBuscarE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBuscarEActionPerformed(evt);
             }
         });
 
@@ -146,6 +137,8 @@ public class GestionClase extends javax.swing.JInternalFrame {
             }
         });
 
+        jrEstado.setSelected(true);
+        jrEstado.setEnabled(false);
         jrEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrEstadoActionPerformed(evt);
@@ -154,8 +147,6 @@ public class GestionClase extends javax.swing.JInternalFrame {
 
         jchora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" }));
 
-        jcdia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", " " }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,37 +154,32 @@ public class GestionClase extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(158, 158, 158)
-                                .addComponent(jLabel1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(150, 150, 150)
-                                .addComponent(jLabel3)))
-                        .addGap(4, 4, 4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(18, 35, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtEntrenador)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtNombre)
-                            .addComponent(jtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(jrEstado)
+                            .addComponent(jtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(jComboBoxEntrenador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jchora, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jcdia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(38, 38, 38)
+                                .addComponent(jrEstado)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jchora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(158, 158, 158)
+                            .addComponent(jLabel1))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(150, 150, 150)
+                            .addComponent(jLabel3))))
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jbBuscarN)
-                        .addComponent(jbBuscarE))
+                    .addComponent(jbBuscarN)
                     .addComponent(jbBuscarH))
                 .addGap(39, 39, 39))
             .addGroup(layout.createSequentialGroup()
@@ -217,19 +203,17 @@ public class GestionClase extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscarN))
-                .addGap(32, 32, 32)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jtEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscarE))
-                .addGap(8, 8, 8)
+                    .addComponent(jComboBoxEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addComponent(jLabel3)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jbBuscarH)
-                    .addComponent(jchora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcdia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jchora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -267,12 +251,10 @@ public class GestionClase extends javax.swing.JInternalFrame {
         Integer capacidad;
         
         try{
-        int id = Integer.parseInt(jtEntrenador.getText());  
-        Entrenador entrenador = entre.buscarPorID(id);
+        Entrenador entrenador = (Entrenador)jComboBoxEntrenador.getSelectedItem();
         capacidad = Integer.parseInt(jtCapacidad.getText());
-        DayOfWeek dia = parsearDia(jcdia.getSelectedItem().toString());
         
-        if(nombre.isEmpty() || id==0 || capacidad==0){
+        if(nombre.isEmpty() || entrenador == null || capacidad==0){
         JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
         return;
         }
@@ -285,8 +267,8 @@ public class GestionClase extends javax.swing.JInternalFrame {
         }
           
         if(clase == null){
-            if (!existeHorario(horario, dia)) { 
-                clase = new Clase(nombre,entrenador,horario,capacidad,dia,true);
+            if (!existeHorario(horario)) { 
+                clase = new Clase(nombre,entrenador,horario,capacidad,true);
                 claseData.guardarClase(clase);
             } else {
                 JOptionPane.showMessageDialog(null, "No puede haber dos clases en un mismo horario");
@@ -296,7 +278,6 @@ public class GestionClase extends javax.swing.JInternalFrame {
             clase.setHorario(horario);
             clase.setEstado(true);
             clase.setEntrenador(entrenador);
-            clase.setDia(dia);
             clase.setCapacidad(capacidad);
             claseData.modificarClase(clase);
         }
@@ -309,12 +290,13 @@ public class GestionClase extends javax.swing.JInternalFrame {
         String nombre = jtNombre.getText();
         clase = claseData.buscarClasePorNombre(nombre);
         if(clase != null){
-            jtEntrenador.setText(String.valueOf(clase.getEntrenador().getId_Entrenador()));
+            Entrenador e = clase.getEntrenador();
+            JOptionPane.showMessageDialog(null, e.toString());
+            jComboBoxEntrenador.setSelectedItem(e);
             jtCapacidad.setText(String.valueOf(clase.getCapacidad()));
             jrEstado.setSelected(true);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
             String time = formatter.format(clase.getHorario());
-            jcdia.setSelectedItem(parsearDiav2(clase.getDia()));
             jchora.setSelectedItem(time);
         }
     }//GEN-LAST:event_jbBuscarNActionPerformed
@@ -328,37 +310,17 @@ public class GestionClase extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
-    private void jbBuscarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarEActionPerformed
-        // TODO add your handling code here:
-         int id = Integer.parseInt(jtEntrenador.getText());
-         Entrenador entrenador = entre.buscarPorID(id);
-         clase = claseData.buscarClasePorEntrenador(id);
-         if(clase != null){
-            jtNombre.setText(clase.getNombre());
-            jtCapacidad.setText(String.valueOf(clase.getCapacidad()));
-            jrEstado.setSelected(true);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-            String time = formatter.format(clase.getHorario());
-            jcdia.setSelectedItem(parsearDiav2(clase.getDia()));
-            jchora.setSelectedItem(time);
-        }else{
-            JOptionPane.showMessageDialog(null,"clase no encontrada");
-        }
-        
-    }//GEN-LAST:event_jbBuscarEActionPerformed
-
     private void jbBuscarHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarHActionPerformed
         // TODO add your handling code here:
         String hora = jchora.getSelectedItem().toString();
-        String dia = jcdia.getSelectedItem().toString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime time = LocalTime.parse(hora, formatter);
-        clase = claseData.buscarClasePorHorario(time, parsearDia(dia));
+        clase = claseData.buscarClasePorHorario(time);
         
         if(clase != null){
             jtNombre.setText(clase.getNombre());
             jtCapacidad.setText(String.valueOf(clase.getCapacidad()));
-            jtEntrenador.setText(String.valueOf(clase.getEntrenador().getId_Entrenador()));
+            jComboBoxEntrenador.setSelectedItem(clase.getEntrenador());
             jrEstado.setSelected(true);
         }else{
             JOptionPane.showMessageDialog(null,"clase no encontrada");
@@ -380,39 +342,16 @@ public class GestionClase extends javax.swing.JInternalFrame {
 
     public void limpiarCampos(){
         jtNombre.setText("");
-        jtEntrenador.setText("");
         jchora.setSelectedIndex(0);
-        jcdia.setSelectedIndex(0);
         jtCapacidad.setText("");  
     }
 
-public DayOfWeek parsearDia(String dia){
-    switch(dia){
-        case "Lunes" : return DayOfWeek.MONDAY;
-        case "Martes" : return DayOfWeek.TUESDAY;
-        case "Miercoles" : return DayOfWeek.WEDNESDAY;
-        case "Jueves" : return DayOfWeek.THURSDAY;
-        case "Viernes" : return DayOfWeek.FRIDAY;    
-    }
-    return null;
-}
 
-public String parsearDiav2(DayOfWeek dia){
-    switch(dia){
-        case MONDAY : return "Lunes";
-        case TUESDAY : return "Martes";
-        case WEDNESDAY : return "Miercoles";
-        case THURSDAY : return "Jueves";
-        case FRIDAY : return "Viernes";
-    }
-    return null;
-}
-
-public boolean existeHorario(LocalTime horario, DayOfWeek dia){
+public boolean existeHorario(LocalTime horario){
    boolean existe = false;
     ArrayList<Clase> clases = (ArrayList<Clase>)claseData.listaClase();
     for (Clase c : clases) {
-        if (c.getHorario() == horario && c.getDia() == dia) {
+        if (c.getHorario() == horario) {
             existe = true;
             break;
         }
@@ -420,8 +359,15 @@ public boolean existeHorario(LocalTime horario, DayOfWeek dia){
    return existe;
 }
 
+    private void cargarEntrenador() {
+        for (Entrenador e : listaE) {
+            jComboBoxEntrenador.addItem(e);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Entrenador> jComboBoxEntrenador;
     private com.toedter.calendar.JDayChooser jDayChooser1;
     private com.toedter.calendar.JDayChooser jDayChooser2;
     private javax.swing.JLabel jLabel1;
@@ -431,18 +377,15 @@ public boolean existeHorario(LocalTime horario, DayOfWeek dia){
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JButton jbBuscarE;
     private javax.swing.JButton jbBuscarH;
     private javax.swing.JButton jbBuscarN;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcdia;
     private javax.swing.JComboBox<String> jchora;
     private javax.swing.JRadioButton jrEstado;
     private javax.swing.JTextField jtCapacidad;
-    private javax.swing.JTextField jtEntrenador;
     private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
 }

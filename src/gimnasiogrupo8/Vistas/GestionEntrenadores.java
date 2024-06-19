@@ -49,6 +49,7 @@ public class GestionEntrenadores extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jbNuevo = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
+        jBuscarPorDni = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 153, 102));
 
@@ -120,6 +121,13 @@ public class GestionEntrenadores extends javax.swing.JInternalFrame {
             }
         });
 
+        jBuscarPorDni.setText("Buscar");
+        jBuscarPorDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBuscarPorDniActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,7 +163,9 @@ public class GestionEntrenadores extends javax.swing.JInternalFrame {
                                             .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jbGuardar, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(18, 18, 18)
-                                .addComponent(jbBuscar))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jbBuscar)
+                                    .addComponent(jBuscarPorDni)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addComponent(jLabel1)))
@@ -178,7 +188,8 @@ public class GestionEntrenadores extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBuscarPorDni))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -303,8 +314,28 @@ public class GestionEntrenadores extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
+    private void jBuscarPorDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarPorDniActionPerformed
+        // TODO add your handling code here:
+        String dni;
+        try{
+            dni = jtDni.getText().trim();
+            entrenadorActual = ed.buscarEntrenadorDNI(dni);
+            if(entrenadorActual != null){
+               jtNombre.setText(entrenadorActual.getNombre());
+               jtApellido.setText(entrenadorActual.getApellido());
+               jtEspecialidad.setText(entrenadorActual.getEspecialidad());
+               jrEstado.setSelected(entrenadorActual.isEstado());
+            }else{
+                JOptionPane.showMessageDialog(null,"Entrenador no encontrado");
+            }
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null,"Debe ingresar un valor valido");
+        }    
+    }//GEN-LAST:event_jBuscarPorDniActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBuscarPorDni;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -43,11 +43,9 @@ public class SocioVista extends javax.swing.JInternalFrame {
         jNombre = new javax.swing.JTextField();
         jBuscarPorNombre = new javax.swing.JButton();
         jApellido = new javax.swing.JTextField();
-        jDNI = new javax.swing.JTextField();
         jTelefono = new javax.swing.JTextField();
         jCorreo = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jID = new javax.swing.JTextField();
+        jDNI = new javax.swing.JTextField();
         jBuscarPorID = new javax.swing.JButton();
         jNuevo = new javax.swing.JButton();
         jSalir = new javax.swing.JButton();
@@ -76,8 +74,6 @@ public class SocioVista extends javax.swing.JInternalFrame {
                 jBuscarPorNombreActionPerformed(evt);
             }
         });
-
-        jLabel7.setText("ID:");
 
         jBuscarPorID.setText("Buscar");
         jBuscarPorID.addActionListener(new java.awt.event.ActionListener() {
@@ -128,48 +124,40 @@ public class SocioVista extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                             .addComponent(jNuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel2)))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jID, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBuscarPorID)
-                                .addGap(5, 5, 5))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jEdad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                                                .addComponent(jApellido, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jNombre, javax.swing.GroupLayout.Alignment.LEADING)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBuscarPorNombre))
-                                    .addComponent(jCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTelefono)
+                                    .addComponent(jEdad, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                                    .addComponent(jApellido)
+                                    .addComponent(jNombre))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBuscarPorNombre))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jDNI)
+                                    .addComponent(jCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+                                .addGap(1, 1, 1)
+                                .addComponent(jBuscarPorID)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -192,8 +180,6 @@ public class SocioVista extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -202,9 +188,9 @@ public class SocioVista extends javax.swing.JInternalFrame {
                     .addComponent(jCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBuscarPorID))
+                    .addComponent(jDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBuscarPorID)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jNuevo)
@@ -320,15 +306,14 @@ public class SocioVista extends javax.swing.JInternalFrame {
 
     private void jBuscarPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarPorIDActionPerformed
         // TODO add your handling code here:
-        int id;
+        String dni;
         try{
-            id = Integer.parseInt(jID.getText());
-            socio = socioData.buscarSocioPorId(id);
+            dni = jDNI.getText();
+            socio = socioData.buscarSocioPorDNI(dni);
             if(socio != null){
                 jNombre.setText(socio.getNombre());
                 jApellido.setText(socio.getApellido());
                 jCorreo.setText(socio.getCorreo());
-                jDNI.setText(socio.getDni());
                 jTelefono.setText(socio.getTelefono());
                 jEdad.setText(String.valueOf(socio.getEdad()));
             }else{
@@ -348,10 +333,9 @@ public class SocioVista extends javax.swing.JInternalFrame {
             if(socio != null){
                 jApellido.setText(socio.getApellido());
                 jCorreo.setText(socio.getCorreo());
-                jDNI.setText(socio.getDni());
                 jTelefono.setText(socio.getTelefono());
                 jEdad.setText(String.valueOf(socio.getEdad()));
-                jID.setText(String.valueOf(socio.getId_socio()));
+                jDNI.setText(String.valueOf(socio.getDni()));
             }else{
                 JOptionPane.showMessageDialog(null,"Socio no encontrado");
             }
@@ -366,7 +350,6 @@ public class SocioVista extends javax.swing.JInternalFrame {
         jCorreo.setText("");
         jDNI.setText("");
         jTelefono.setText("");
-        jID.setText("");
         jEdad.setText("");
     }
 
@@ -379,14 +362,12 @@ public class SocioVista extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jEdad;
     private javax.swing.JButton jEliminar;
     private javax.swing.JButton jGuardar;
-    private javax.swing.JTextField jID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jNombre;
     private javax.swing.JButton jNuevo;

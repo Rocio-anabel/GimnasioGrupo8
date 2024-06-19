@@ -1,4 +1,7 @@
 package gimnasiogrupo8.entidad;
+
+import java.util.Objects;
+
 public class Entrenador {
     private int id_Entrenador;
     private String dni;
@@ -74,9 +77,40 @@ public class Entrenador {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + this.id_Entrenador;
+        hash = 71 * hash + Objects.hashCode(this.dni);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Entrenador other = (Entrenador) obj;
+        if (this.id_Entrenador != other.id_Entrenador) {
+            return false;
+        }
+        if (!Objects.equals(this.dni, other.dni)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
     @Override
     public String toString() {
-        return "Entrenador{" + "id_Entrenador=" + id_Entrenador + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", especialidad=" + especialidad +'}';
+        return dni + " " +nombre + " " +apellido;
     }
 }
