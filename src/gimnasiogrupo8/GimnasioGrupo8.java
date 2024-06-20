@@ -30,7 +30,7 @@ public class GimnasioGrupo8 {
         Socio laura = new Socio(1,"38654221", "Laura", "Martinez", 30, "lauritamarr001@gmail.com", "2665312040", true);
         Membresia memb = new Membresia(1, laura, 4560, 12, LocalDate.of(2024, 5, 10), LocalDate.of(2024, 6, 15), true);
         Entrenador mariana = new Entrenador(1, "32678542", "Mariana", "Ochoa", "Relajación", true);
-        Clase pilates = new Clase(2, "Pilates", mariana, LocalTime.of(18, 00), 3,DayOfWeek.MONDAY,true);
+        Clase pilates = new Clase(2, "Pilates", mariana, LocalTime.of(18, 00), 3,true);
 //        Asistencia asis = new Asistencia(laura, pilates, memb, LocalDateTime.now());
         //
         
@@ -73,11 +73,11 @@ public class GimnasioGrupo8 {
         System.out.println("Clases:");
         ClaseData cd = new ClaseData();
         pablo = new Entrenador(2,"39843222", "Pablo", "Mendoza", "Musculatura", true);
-        Clase musculacion = new Clase("Musculación", pablo, LocalTime.of(16, 00), 10,DayOfWeek.THURSDAY,true);
+        Clase musculacion = new Clase("Musculación", pablo, LocalTime.of(16, 00), 10,true);
         cd.guardarClase(musculacion);
         
         System.out.println(cd.buscarClasePorNombre("pilates"));
-        System.out.println(cd.buscarClasePorHorario(LocalTime.of(18, 00),DayOfWeek.MONDAY));
+        System.out.println(cd.buscarClasePorHorario(LocalTime.of(18, 00)));
         System.out.println(cd.buscarClasePorEntrenador(1));
         
         System.out.println("Lista de clases");
@@ -86,7 +86,7 @@ public class GimnasioGrupo8 {
             System.out.println(clase);
         }
         
-        pilates = new Clase(1, "Pilates", mariana, LocalTime.of(18,00), 10,DayOfWeek.MONDAY,true);
+        pilates = new Clase(1, "Pilates", mariana, LocalTime.of(18,00), 10,true);
         cd.modificarClase(pilates);
         cd.eliminarClase(13);
         

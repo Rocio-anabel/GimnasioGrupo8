@@ -133,8 +133,8 @@ public class AsistenciaData {
         List<Asistencia> asistencias = new ArrayList<>();
         String sql = "SELECT ID_Asistencia, a.ID_Socio, a.ID_Clase, a.ID_Membresia, a.FechaHora"
                 + " FROM asistencia a, clases c, membresias m, socios s"
-                + " WHERE c.Estado = 1 AND m.Estado = 1 AND s.Estado = 1"
-                + " AND a.ID_Socio = s.ID_Socio AND a.ID_Clase = c.ID_Clase AND a.ID_Membresia = m.ID_Membresía"
+                + " WHERE "
+                + " a.ID_Socio = s.ID_Socio AND a.ID_Clase = c.ID_Clase AND a.ID_Membresia = m.ID_Membresía"
                 + " AND DATE(FechaHora) = ?";
         
         try {

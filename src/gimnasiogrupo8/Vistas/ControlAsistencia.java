@@ -15,6 +15,7 @@ import gimnasiogrupo8.entidad.Membresia;
 import gimnasiogrupo8.entidad.Socio;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,11 +28,15 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
         private SociosData sd = new SociosData();
         private MembresiaData md = new MembresiaData();
         private ClaseData cd = new ClaseData();
+        private ArrayList<Socio> listaS = (ArrayList<Socio>) sd.listarSocios();
+        private ArrayList<Clase> listaC = (ArrayList<Clase>) cd.listaClase();
     /**
      * Creates new form Asistencia
      */
     public ControlAsistencia() {
         initComponents();
+        cargarSocio();
+        cargarClases();
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String fechahora = formater.format(fechayhoraActual);
         jtFechaHoraActual.setText(fechahora);
@@ -49,14 +54,12 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jtIDSocio = new javax.swing.JTextField();
-        jtIDClase = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jtIDMembresia = new javax.swing.JTextField();
         jtFechaHoraActual = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jbRegistrar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+        jComboBoxClases = new javax.swing.JComboBox<>();
+        jComboBoxSocios = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(204, 255, 204));
 
@@ -64,13 +67,10 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
         jLabel1.setText("Control de Asistencias");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("ID Socio:");
+        jLabel2.setText("Socios : ");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("ID Clase:");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("ID Membresia:");
+        jLabel3.setText("Clases : ");
 
         jtFechaHoraActual.setEditable(false);
         jtFechaHoraActual.addActionListener(new java.awt.event.ActionListener() {
@@ -105,19 +105,14 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(71, 71, 71)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtIDClase, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtIDMembresia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtIDSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 122, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addComponent(jtFechaHoraActual))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtFechaHoraActual)
+                            .addComponent(jComboBoxClases, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxSocios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbRegistrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -126,56 +121,45 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(117, 117, 117)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jtIDSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jtIDClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtIDMembresia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jComboBoxSocios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtFechaHoraActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(43, 43, 43)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBoxClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jtFechaHoraActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbRegistrar)
                     .addComponent(jbSalir))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(54, 54, 54))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
-        try {
-            int idSocio = Integer.parseInt(jtIDSocio.getText());
-            int idClase = Integer.parseInt(jtIDClase.getText());
-            int idMembresia = Integer.parseInt(jtIDMembresia.getText());
+      
+            Socio socio = (Socio)jComboBoxSocios.getSelectedItem();
+            Clase clase = (Clase)jComboBoxClases.getSelectedItem();
+            Membresia membresia = md.buscarMembresiaPorSocio(socio.getId_socio());
             
-            Socio socio = sd.buscarSocioPorId(idSocio);
-            Clase clase = cd.buscarClasePorID(idClase);
-            Membresia membresia = md.buscarMembresiaporID(idMembresia);
-             
             if (socio == null || clase == null || membresia == null) {
                 return;
             }
-            if (clase.getDia() != fechayhoraActual.getDayOfWeek()) {
-                JOptionPane.showMessageDialog(this, "Hoy no se dicta la clase solicitada");
-                return;
-            }
+            
             if (!clase.getHorario().isAfter(fechayhoraActual.toLocalTime())) {
                 JOptionPane.showMessageDialog(this, "La clase ya terminó no puede registrarse");
                 return;
@@ -185,11 +169,7 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
                 ad.registrarAsistencia(asitencia);
             } else {
                 JOptionPane.showMessageDialog(this,"Membresía no válida para ese socio");
-            }  
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un número válido");
-        }
+            } 
     }//GEN-LAST:event_jbRegistrarActionPerformed
 
     private void jtFechaHoraActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtFechaHoraActualActionPerformed
@@ -200,18 +180,28 @@ public class ControlAsistencia extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void cargarSocio() {
+        for (Socio e : listaS) {
+            jComboBoxSocios.addItem(e);
+        }
+    }
+    
+    private void cargarClases(){
+        for(Clase c : listaC){
+            jComboBoxClases.addItem(c);
+        }
+    }
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Clase> jComboBoxClases;
+    private javax.swing.JComboBox<Socio> jComboBoxSocios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JButton jbRegistrar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JTextField jtFechaHoraActual;
-    private javax.swing.JTextField jtIDClase;
-    private javax.swing.JTextField jtIDMembresia;
-    private javax.swing.JTextField jtIDSocio;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,7 @@
 package gimnasiogrupo8.entidad;
+
+import java.util.Objects;
+
 public class Socio {
     private int id_socio;
     private String dni;
@@ -96,11 +99,42 @@ public class Socio {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + this.id_socio;
+        hash = 97 * hash + Objects.hashCode(this.dni);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Socio other = (Socio) obj;
+        if (this.id_socio != other.id_socio) {
+            return false;
+        }
+        if (!Objects.equals(this.dni, other.dni)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
       
 
     @Override
     public String toString() {
-        return "Socio{" + "id_socio=" + id_socio + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", correo=" + correo + ", telefono=" + telefono + '}';
+        return dni + " " + nombre + " " + apellido;
     }
     
     

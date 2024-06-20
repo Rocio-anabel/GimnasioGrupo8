@@ -46,7 +46,6 @@ public class ListaClase extends javax.swing.JInternalFrame {
         fila.add("Nombre");
         fila.add("ID Entrenador");
         fila.add("Horario");
-        fila.add("Dia");
         fila.add("Capacidad");
               
         for(Object it : fila){
@@ -63,8 +62,7 @@ public class ListaClase extends javax.swing.JInternalFrame {
             int entrenador = s.getEntrenador().getId_Entrenador();    
             int capacidad = s.getCapacidad();
             LocalTime hora = s.getHorario();
-            DayOfWeek dia = s.getDia();
-            modelo.addRow(new Object[]{id,nombre,entrenador,hora,dia,capacidad});
+            modelo.addRow(new Object[]{id,nombre,entrenador,hora,capacidad});
         }
     }
     

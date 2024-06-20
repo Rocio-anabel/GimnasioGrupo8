@@ -291,7 +291,6 @@ public class GestionClase extends javax.swing.JInternalFrame {
         clase = claseData.buscarClasePorNombre(nombre);
         if(clase != null){
             Entrenador e = clase.getEntrenador();
-            JOptionPane.showMessageDialog(null, e.toString());
             jComboBoxEntrenador.setSelectedItem(e);
             jtCapacidad.setText(String.valueOf(clase.getCapacidad()));
             jrEstado.setSelected(true);

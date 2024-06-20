@@ -81,10 +81,37 @@ public class Clase {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + this.id_clase;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Clase other = (Clase) obj;
+        if (this.id_clase != other.id_clase) {
+            return false;
+        }
+        return true;
+    }
+    
+    
   
     @Override
     public String toString() {
-        return "Clase{" + "id_clase=" + id_clase + ", nombre=" + nombre + ", entrenador=" + entrenador + ", horario=" + horario + ", capacidad=" + capacidad + ", estado=" + estado + '}';
+        return nombre + " " + entrenador.getNombre() + " " + entrenador.getApellido() + " " + horario;
     }
     
     

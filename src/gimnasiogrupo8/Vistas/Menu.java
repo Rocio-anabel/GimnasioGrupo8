@@ -267,7 +267,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItemMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMembresiaActionPerformed
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        GestionMembresia alu=new GestionMembresia();
+        MembresiaVista alu=new MembresiaVista();
         alu.setVisible(true);
         jDesktopPane1.add(alu);
         jDesktopPane1.moveToFront(alu); 
