@@ -198,6 +198,34 @@ public class SociosData {
         }
         return socios;
        }
+       
+       public List<Socio> listarSociosDNI(String dni){
+           String sql = "SELECT ID_Socio,Nombre, Apellido, Edad, Correo, Telefono FROM socios WHERE Estado = 1 AND Dni = ?";
+           List<Socio> socios = new ArrayList<>();
+         
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,dni);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Socio socio = new Socio();
+                socio.setId_socio(rs.getInt("ID_Socio"));
+                socio.setNombre(rs.getString("Nombre"));
+                socio.setApellido(rs.getString("Apellido"));
+                socio.setEdad(rs.getInt("Edad"));
+                socio.setCorreo(rs.getString("Correo"));
+                socio.setTelefono(rs.getString("Telefono"));
+                socio.setEstado(true);
+                socio.setDni(dni);
+                socios.add(socio);
+            }
+             ps.close();
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,"Error al ingresar a la tabla Socios");
+        }
+          return socios; 
+       }
     
     
     

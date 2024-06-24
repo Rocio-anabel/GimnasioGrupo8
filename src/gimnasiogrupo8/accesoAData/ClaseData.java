@@ -112,9 +112,12 @@ public class ClaseData {
     
     
     }
-    public Clase buscarClasePorEntrenador(int entrenador){
+    public ArrayList<Clase> buscarClasePorEntrenador(Entrenador e){
         
-        Clase clase = null;
+//        Clase clase = null;
+
+        int id = e.getId_Entrenador();
+        ArrayList<Clase> listaC = new ArrayList<>();
         String sql = "SELECT  ID_Clase,Nombre, ID_Entrenador, Horario,Capacidad, Estado FROM clases WHERE Estado=1"
                 + " AND ID_Entrenador = ?";
         
@@ -122,30 +125,26 @@ public class ClaseData {
         
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1,entrenador);
+            ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
             
-            if(rs.next()){
-                EntrenadoresData ed = new EntrenadoresData();
-                Entrenador entre = ed.buscarPorID(entrenador);
-                clase = new Clase();
+            while(rs.next()){
+                Clase clase = new Clase();
                 clase.setId_clase(rs.getInt("ID_Clase"));
                 clase.setNombre(rs.getString("Nombre"));
-                clase.setEntrenador(entre);
+                clase.setEntrenador(e);
                 clase.setHorario(rs.getTime("Horario").toLocalTime());
                 clase.setCapacidad(rs.getInt("Capacidad"));
                 clase.setEstado(true);
-            }else{
-                JOptionPane.showMessageDialog(null, "No existe la Clase");    
-            }
+                listaC.add(clase);
+            } 
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la Clase "+ex.getMessage());
         }
-            return clase;
-    
-    
+            return listaC;
     }
+    
     public Clase buscarClasePorHorario(LocalTime horario){
         
         Clase clase = null;
@@ -241,7 +240,6 @@ public class ClaseData {
                 }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la Clase "+ex.getMessage());
-        }
-    
+        } 
     }
 }
