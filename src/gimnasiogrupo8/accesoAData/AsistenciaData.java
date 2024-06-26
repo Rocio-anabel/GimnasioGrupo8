@@ -61,6 +61,7 @@ public class AsistenciaData {
                     mb.modificarMembresia(membresia);
                      if (cantPases == 0) {
                          mb.eliminarMembresia(idMembresia);
+                         JOptionPane.showMessageDialog(null, "Cantidad de pases agotado");
                      } 
                     ps.close(); 
                 }     

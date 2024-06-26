@@ -6,6 +6,7 @@ package gimnasiogrupo8.Vistas;
 
 import gimnasiogrupo8.accesoAData.ClaseData;
 import gimnasiogrupo8.accesoAData.MembresiaData;
+import gimnasiogrupo8.accesoAData.SociosData;
 import gimnasiogrupo8.entidad.Entrenador;
 import gimnasiogrupo8.entidad.Membresia;
 import gimnasiogrupo8.entidad.Socio;
@@ -20,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class ListarMembresia extends javax.swing.JInternalFrame {
 
     private MembresiaData md=new MembresiaData();
+    private SociosData sd = new SociosData();
     private DefaultTableModel modelo = new DefaultTableModel();
     private ArrayList<Membresia> listaE = (ArrayList<Membresia>) md.listarMembresiasActivas() ;
     public ListarMembresia() {
@@ -42,11 +44,13 @@ public class ListarMembresia extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabla = new javax.swing.JTable();
         jbSalir = new javax.swing.JButton();
+        jButtonNuevo = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Lista Membresia");
 
-        jLabel2.setText("Listar por Socio");
+        jLabel2.setText("Buscar por DNI: ");
 
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -75,25 +79,33 @@ public class ListarMembresia extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonNuevo.setText("Nuevo");
+        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(42, 42, 42)
-                .addComponent(jtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
-                .addComponent(jbBuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbSalir)
-                .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(211, 211, 211)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonNuevo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbSalir)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +116,8 @@ public class ListarMembresia extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar)
-                    .addComponent(jbSalir))
+                    .addComponent(jbSalir)
+                    .addComponent(jButtonNuevo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -114,14 +127,16 @@ public class ListarMembresia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-         borrarFilaTabla();  
-         int idSocio = Integer.parseInt(jtSocio.getText());
-        Membresia membresia = md.buscarMembresiaPorSocio(idSocio);
-        ArrayList<Membresia> listaSocio = (ArrayList<Membresia>)md.listarMembresiasPorSocios(idSocio);
+        borrarFilaTabla();  
+        String dni = jtSocio.getText();
+        Socio s = sd.buscarSocioPorDNI(dni);
+        int id= s.getId_socio();
+        Membresia membresia = md.buscarMembresiaPorSocio(id);
+        ArrayList<Membresia> listaSocio = (ArrayList<Membresia>)md.listarMembresiasPorSocios(id);
         for (Membresia e : listaSocio) {
             modelo.addRow(new Object[]{
                 e.getId_membresia(),
-                e.getSocio().getId_socio(),
+                e.getSocio().getApellido() + "  " + e.getSocio().getNombre(),
                 e.getCosto(),
                 e.getCantidadPases(),
                 e.getFecha_inicio(),
@@ -134,10 +149,17 @@ public class ListarMembresia extends javax.swing.JInternalFrame {
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        // TODO add your handling code here:
+        borrarFilaTabla();
+        cargarMembresia();
+        jtSocio.setText("");
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
 private void armarCabeceraTabla() {
         ArrayList<Object> filaCabecera = new ArrayList<>();
-         filaCabecera.add("ID_Membresia");
-         filaCabecera.add("ID_Socio");
+         filaCabecera.add("N° Membresia");
+         filaCabecera.add("Socio");
          filaCabecera.add("Costo");
          filaCabecera.add("Cantidad Pases");
          filaCabecera.add("Fecha Inicio");
@@ -160,12 +182,12 @@ private void borrarFilaTabla(){
 private void cargarMembresia(){
         for (Membresia membresia : listaE) {
             int id = membresia.getId_membresia();
-            int socio=membresia.getSocio().getId_socio();
+            String so = membresia.getSocio().getApellido() + "  " + membresia.getSocio().getNombre();
             int cost=(int) membresia.getCosto();
             int cantpases=membresia.getCantidadPases();
             LocalDate inicio=membresia.getFecha_inicio();
             LocalDate fin=membresia.getFecha_fin(); 
-            modelo.addRow(new Object[]{id, socio,cost,cantpases,inicio,fin});
+            modelo.addRow(new Object[]{id, so,cost,cantpases,inicio,fin});
         }
     }
 
@@ -173,6 +195,7 @@ private void cargarMembresia(){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

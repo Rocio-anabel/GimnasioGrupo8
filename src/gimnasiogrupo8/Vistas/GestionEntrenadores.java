@@ -325,6 +325,7 @@ public class GestionEntrenadores extends javax.swing.JInternalFrame {
                jtApellido.setText(entrenadorActual.getApellido());
                jtEspecialidad.setText(entrenadorActual.getEspecialidad());
                jrEstado.setSelected(entrenadorActual.isEstado());
+               jbEliminar.setEnabled(true);
             }else{
                 JOptionPane.showMessageDialog(null,"Entrenador no encontrado");
             }
