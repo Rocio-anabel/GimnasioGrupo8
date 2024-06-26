@@ -229,7 +229,7 @@ public class MembresiaVista extends javax.swing.JInternalFrame {
             Date fechaI = jtInicio.getDate();
             Date fechaF = jtFin.getDate(); 
             Socio miembroso = (Socio)jComboBoxSocios.getSelectedItem();
-            int costo=Integer.parseInt(jtCosto.getText());
+            Double costo=Double.parseDouble(jtCosto.getText());
             int pases=Integer.parseInt(jtPases.getText());
             LocalDate inicio=fechaI.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate fin=fechaF.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

@@ -136,7 +136,7 @@ public class AsistenciaData {
                 + " FROM asistencia a, clases c, membresias m, socios s"
                 + " WHERE "
                 + " a.ID_Socio = s.ID_Socio AND a.ID_Clase = c.ID_Clase AND a.ID_Membresia = m.ID_Membresía"
-                + " AND DATE(FechaHora) = ?";
+                + " AND DATE(FechaHora) = ? AND s.Estado = 1 AND m.Estado = 1 AND c.Estado = 1";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
