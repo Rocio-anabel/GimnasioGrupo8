@@ -8,6 +8,7 @@ package gimnasiogrupo8.Vistas;
 import gimnasiogrupo8.accesoAData.SociosData;
 import gimnasiogrupo8.entidad.Socio;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -141,7 +142,15 @@ public class listaSocios extends javax.swing.JInternalFrame {
     private void jBBuscarDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarDNIActionPerformed
         // TODO add your handling code here:
         borrarFilaTabla();
-        String DNI = jBuscarDNI.getText();
+        String DNI = jBuscarDNI.getText().trim();
+        
+        if(!DNI.matches("^\\d+$")){
+            JOptionPane.showMessageDialog(null, "El DNI solo debe contener números.");
+            jBuscarDNI.setText("");
+            jBuscarDNI.requestFocus();
+            return;
+        }
+           
         ArrayList<Socio> listaSociosDNI = (ArrayList<Socio>)socioData.listarSociosDNI(DNI);
         for(Socio s : listaSociosDNI){
             modelo.addRow(new Object[]{

@@ -259,7 +259,7 @@ public class GestionClase extends javax.swing.JInternalFrame {
         return;
         }
         
-        if (!nombre.matches("^[a-zA-Z]+$")) {
+        if (!nombre.matches("^[a-zA-Z ]+$")) {
             JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
             jtNombre.setText("");
             jtNombre.requestFocus();

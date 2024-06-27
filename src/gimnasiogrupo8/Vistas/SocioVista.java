@@ -232,7 +232,7 @@ public class SocioVista extends javax.swing.JInternalFrame {
             return;
         }
             
-    if (!nombre.matches("^[a-zA-Z]+$")) {
+    if (!nombre.matches("^[a-zA-Z ]+$")) {
         JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
         jNombre.setText("");
         jNombre.requestFocus();
@@ -289,7 +289,7 @@ public class SocioVista extends javax.swing.JInternalFrame {
       JOptionPane.showMessageDialog(null, "El socio se guardó correctamente.");
       limpiarCampos();
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "La edad debe ser un número válido.");
+        JOptionPane.showMessageDialog(null, "La edad tiene que ser un numero valido.");
     }         
     }//GEN-LAST:event_jGuardarActionPerformed
 

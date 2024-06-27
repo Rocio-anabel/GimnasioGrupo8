@@ -12,6 +12,7 @@ import gimnasiogrupo8.entidad.Membresia;
 import gimnasiogrupo8.entidad.Socio;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -129,6 +130,12 @@ public class ListarMembresia extends javax.swing.JInternalFrame {
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         borrarFilaTabla();  
         String dni = jtSocio.getText();
+        if(!dni.matches("^\\d+$")){
+            JOptionPane.showMessageDialog(null,"El dni debe contener solo numeros");
+            jtSocio.setText("");
+            jtSocio.requestFocus();
+            return;
+        }
         Socio s = sd.buscarSocioPorDNI(dni);
         int id= s.getId_socio();
         Membresia membresia = md.buscarMembresiaPorSocio(id);

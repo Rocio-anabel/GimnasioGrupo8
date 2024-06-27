@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -127,7 +128,9 @@ public class ListaAsistencia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        borrarFilaTabla();
+ 
+        try{
+           borrarFilaTabla();
         
         java.util.Date sfecha = jdFecha.getDate();
         LocalDate fecha = sfecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -141,6 +144,10 @@ public class ListaAsistencia extends javax.swing.JInternalFrame {
             int membresia = a.getMembresia().getId_membresia();
             LocalDateTime fechahora = a.getFechaHora();
             modelo.addRow(new Object[]{id, socio, clase, membresia, fechahora});
+        }  
+        }catch(NullPointerException nfe){
+            JOptionPane.showMessageDialog(null,"Debe seleccionar una fecha");
+            cargarAsistencias();
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
